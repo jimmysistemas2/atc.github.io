@@ -57,7 +57,10 @@ function iconFor(label){
 }
 
 function kpiCard(label,value,hint){
+  const numeric = Number(String(value).replace(/[^0-9.]/g,'')) || 0;
+  const ring = label === 'Calidad HIS' ? Math.min(numeric,100) : label === 'Concentración' ? Math.min(numeric*20,100) : 76;
   return `<article class="kpi">
+    <div class="kpi-ring" style="--p:${ring}"><span></span></div>
     <div class="label">${label}</div>
     <div class="value counter" data-target="${String(value).replace(/[^0-9.]/g,'')}" data-original="${value}">${value}</div>
     <div class="hint">${hint}</div>
@@ -164,13 +167,41 @@ function renderPlotly(d){
     {displayModeBar:false,responsive:true});
 }
 
+function barCell(value, max, accent='cyan'){
+  const pct = max ? Math.round((value / max) * 100) : 0;
+  return `
+    <div class="bar-cell">
+      <div class="bar-top"><strong>${fmt.format(value)}</strong><span>${pct}%</span></div>
+      <div class="bar-track"><i class="${accent}" style="width:${pct}%"></i></div>
+    </div>`;
+}
+
+function badgeCell(value){
+  const v = Number(value) || 0;
+  const cls = v >= 4 ? 'hot' : v >= 2.5 ? 'mid' : 'low';
+  return `<span class="metric-badge ${cls}">${v}</span>`;
+}
+
 function renderTables(d){
-  const estCols = [{title:'Establecimiento',data:'ESTABLECIMIENTO'},{title:'Atenciones',data:'atenciones',render:x=>fmt.format(x)},{title:'Atendidos',data:'atendidos',render:x=>fmt.format(x)},{title:'Concentración',data:'concentracion'}];
-  const upsCols = [{title:'UPS',data:'UPS_DESCRIPCION'},{title:'Atenciones',data:'atenciones',render:x=>fmt.format(x)},{title:'Atendidos',data:'atendidos',render:x=>fmt.format(x)},{title:'Concentración',data:'concentracion'}];
+  const maxEst = Math.max(...(d.establecimientos || []).map(x=>x.atenciones), 1);
+  const maxUps = Math.max(...(d.ups || []).map(x=>x.atenciones), 1);
+
+  const estCols = [
+    {title:'IPRESS',data:'ESTABLECIMIENTO',render:x=>`<div class="name-cell"><i class="fa-solid fa-hospital"></i><span>${x}</span></div>`},
+    {title:'Atenciones',data:'atenciones',render:x=>barCell(x,maxEst,'cyan')},
+    {title:'Atendidos',data:'atendidos',render:x=>`<div class="pill-number"><i class="fa-solid fa-users"></i>${fmt.format(x)}</div>`},
+    {title:'Concentración',data:'concentracion',render:x=>badgeCell(x)}
+  ];
+  const upsCols = [
+    {title:'UPS',data:'UPS_DESCRIPCION',render:x=>`<div class="name-cell"><i class="fa-solid fa-layer-group"></i><span>${x}</span></div>`},
+    {title:'Atenciones',data:'atenciones',render:x=>barCell(x,maxUps,'violet')},
+    {title:'Atendidos',data:'atendidos',render:x=>`<div class="pill-number"><i class="fa-solid fa-user-check"></i>${fmt.format(x)}</div>`},
+    {title:'Concentración',data:'concentracion',render:x=>badgeCell(x)}
+  ];
   if($.fn.DataTable.isDataTable('#tablaEstablecimientos')) $('#tablaEstablecimientos').DataTable().destroy();
   if($.fn.DataTable.isDataTable('#tablaUps')) $('#tablaUps').DataTable().destroy();
-  $('#tablaEstablecimientos').DataTable({data:d.establecimientos,columns:estCols,pageLength:6,order:[[1,'desc']]});
-  $('#tablaUps').DataTable({data:d.ups,columns:upsCols,pageLength:6,order:[[1,'desc']]});
+  $('#tablaEstablecimientos').DataTable({data:d.establecimientos,columns:estCols,pageLength:6,order:[[1,'desc']],deferRender:true});
+  $('#tablaUps').DataTable({data:d.ups,columns:upsCols,pageLength:6,order:[[1,'desc']],deferRender:true});
 }
 
 function renderAlerts(d){
@@ -239,6 +270,9 @@ function renderAll(d){
   renderPlotly(d);
   renderTables(d);
   renderAlerts(d);
+  renderVisualRanking(d);
+  renderTrafficLights(d);
+  renderPerformanceCards(d);
   renderInsights(d);
 }
 
@@ -278,3 +312,64 @@ function setupPremiumUX(){
 }
 
 window.addEventListener('load', setupPremiumUX);
+
+
+function renderVisualRanking(d){
+  const box = document.getElementById('visualRanking');
+  if(!box) return;
+  const selected = document.getElementById('filterEstablecimiento')?.value || 'Todos los establecimientos';
+  const source = (selected === 'Todos los establecimientos' || selected === 'ALL') ? d.establecimientos : d.ups;
+  const labelKey = (selected === 'Todos los establecimientos' || selected === 'ALL') ? 'ESTABLECIMIENTO' : 'UPS_DESCRIPCION';
+  const max = Math.max(...source.map(x=>x.atenciones),1);
+  box.innerHTML = source.slice(0,10).map((x,i)=>{
+    const p = Math.round((x.atenciones/max)*100);
+    return `<div class="rank-row">
+      <div class="rank-num">${String(i+1).padStart(2,'0')}</div>
+      <div class="rank-main">
+        <div class="rank-title"><span>${x[labelKey]}</span><b>${fmt.format(x.atenciones)}</b></div>
+        <div class="rank-track"><i style="width:${p}%"></i></div>
+      </div>
+      <div class="rank-chip">${p}%</div>
+    </div>`;
+  }).join('');
+}
+
+function renderTrafficLights(d){
+  const box = document.getElementById('trafficLights');
+  if(!box) return;
+  const qDoc = d.quality?.documentos || {};
+  const docObs = Object.entries(qDoc).filter(([k])=>k!=='VALIDO').reduce((s,[,v])=>s+v,0);
+  const docPct = d.kpis.atenciones ? (docObs/d.kpis.atenciones)*100 : 0;
+  const conc = Number(d.kpis.concentracion) || 0;
+  const quality = Number(d.kpis.calidad) || 0;
+  const upsNo = d.quality?.ups?.['No mapeadas'] || 0;
+  const upsPct = d.kpis.atenciones ? (upsNo/d.kpis.atenciones)*100 : 0;
+  const items = [
+    {label:'Calidad HIS', value:quality.toFixed(1)+'%', state: quality>=94?'green':quality>=88?'yellow':'red', icon:'fa-shield-halved'},
+    {label:'Concentración', value:conc, state: conc>=3.5?'red':conc>=2.5?'yellow':'green', icon:'fa-wave-square'},
+    {label:'Doc. observados', value:docPct.toFixed(1)+'%', state: docPct>=10?'red':docPct>=5?'yellow':'green', icon:'fa-id-card'},
+    {label:'UPS no mapeadas', value:upsPct.toFixed(1)+'%', state: upsPct>=5?'red':upsPct>=2?'yellow':'green', icon:'fa-diagram-project'}
+  ];
+  box.innerHTML = items.map(x=>`<div class="traffic ${x.state}">
+    <div class="traffic-icon"><i class="fa-solid ${x.icon}"></i></div>
+    <div><small>${x.label}</small><strong>${x.value}</strong></div>
+    <span class="light"></span>
+  </div>`).join('');
+}
+
+function renderPerformanceCards(d){
+  const box = document.getElementById('performanceCards');
+  if(!box) return;
+  const cards = [
+    {title:'IPRESS líder', value:d.establecimientos?.[0]?.ESTABLECIMIENTO || '—', sub:fmt.format(d.establecimientos?.[0]?.atenciones || 0)+' atenciones', icon:'fa-hospital', color:'cyan'},
+    {title:'UPS líder', value:d.ups?.[0]?.UPS_DESCRIPCION || '—', sub:fmt.format(d.ups?.[0]?.atenciones || 0)+' atenciones', icon:'fa-layer-group', color:'violet'},
+    {title:'Curso predominante', value:d.cursoVida?.[0]?.CURSO_VIDA_VALIDADO || '—', sub:fmt.format(d.cursoVida?.[0]?.atendidos || 0)+' atendidos', icon:'fa-users-viewfinder', color:'green'},
+    {title:'Mayor riesgo', value:d.advancedInsights?.[0]?.category || '—', sub:d.advancedInsights?.[0]?.priority || 'Sin prioridad', icon:d.advancedInsights?.[0]?.icon || 'fa-triangle-exclamation', color:'red'}
+  ];
+  box.innerHTML = cards.map(c=>`<div class="perf-card ${c.color}">
+    <i class="fa-solid ${c.icon}"></i>
+    <small>${c.title}</small>
+    <strong>${c.value}</strong>
+    <span>${c.sub}</span>
+  </div>`).join('');
+}
