@@ -360,9 +360,6 @@ function renderAll(d){
   renderVisualRanking(d);
   renderTrafficLights(d);
   renderPerformanceCards(d);
-  renderIpressVerticalBars(d);
-  renderAtencionesVsAtendidos(d);
-  renderLifeCourseIcons(d);
   renderInsights(d);
 }
 
@@ -462,72 +459,4 @@ function renderPerformanceCards(d){
     <strong>${c.value}</strong>
     <span>${c.sub}</span>
   </div>`).join('');
-}
-
-
-function renderIpressVerticalBars(d){
-  const box = document.getElementById('ipressVerticalBars');
-  if(!box) return;
-  const items = (d.establecimientos || []).slice(0,12);
-  const max = Math.max(...items.map(x=>x.atenciones), 1);
-  box.innerHTML = items.map((x,i)=>{
-    const h = Math.max(8, Math.round((x.atenciones / max) * 100));
-    const risk = Number(x.concentracion) >= 4 ? 'high' : Number(x.concentracion) >= 2.5 ? 'mid' : 'low';
-    return `<div class="vbar-card ${risk}" title="${x.ESTABLECIMIENTO}">
-      <div class="vbar-value">${fmt.format(x.atenciones)}</div>
-      <div class="vbar-wrap">
-        <div class="vbar-glow" style="height:${h}%"></div>
-        <div class="vbar" style="height:${h}%"><span></span></div>
-      </div>
-      <div class="vbar-meta">
-        <strong>${x.ESTABLECIMIENTO}</strong>
-        <small>${fmt.format(x.atendidos)} atendidos · C ${x.concentracion}</small>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-function renderAtencionesVsAtendidos(d){
-  if(!document.getElementById('attVsUsersChart')) return;
-  const selected = document.getElementById('filterEstablecimiento')?.value || 'Todos los establecimientos';
-  const items = selected === 'Todos los establecimientos' ? (d.establecimientos || []).slice(0,8) : (d.ups || []).slice(0,8);
-  const labelKey = selected === 'Todos los establecimientos' ? 'ESTABLECIMIENTO' : 'UPS_DESCRIPCION';
-  makeChart('attVsUsersChart','bar',items.map(x=>x[labelKey]),[
-    {label:'Atenciones',data:items.map(x=>x.atenciones),backgroundColor:'rgba(38,217,255,.62)',borderRadius:12},
-    {label:'Atendidos',data:items.map(x=>x.atendidos),backgroundColor:'rgba(80,245,168,.55)',borderRadius:12}
-  ],{
-    scales:{
-      x:{ticks:{color:'#9fb4ce',maxRotation:45,minRotation:0}, grid:{display:false}},
-      y:{ticks:{color:'#9fb4ce'}, grid:{color:'rgba(255,255,255,.07)'}}
-    }
-  });
-}
-
-function lifeIcon(course){
-  const c = String(course || '').toLowerCase();
-  if(c.includes('niño')) return 'fa-child-reaching';
-  if(c.includes('adolescente')) return 'fa-person-running';
-  if(c.includes('joven')) return 'fa-user-graduate';
-  if(c.includes('adulto mayor')) return 'fa-person-cane';
-  if(c.includes('adulto')) return 'fa-briefcase-medical';
-  return 'fa-users';
-}
-
-function renderLifeCourseIcons(d){
-  const box = document.getElementById('lifeCourseIcons');
-  if(!box) return;
-  const items = d.cursoVida || [];
-  const max = Math.max(...items.map(x=>x.atenciones), 1);
-  box.innerHTML = items.map(x=>{
-    const p = Math.round((x.atenciones/max)*100);
-    return `<article class="life-card">
-      <div class="life-icon"><i class="fa-solid ${lifeIcon(x.CURSO_VIDA_VALIDADO)}"></i></div>
-      <div class="life-info">
-        <strong>${x.CURSO_VIDA_VALIDADO}</strong>
-        <small>${fmt.format(x.atenciones)} atenciones · ${fmt.format(x.atendidos)} atendidos</small>
-        <div class="life-track"><i style="width:${p}%"></i></div>
-      </div>
-      <div class="life-percent">${p}%</div>
-    </article>`;
-  }).join('');
 }
