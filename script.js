@@ -211,7 +211,7 @@ function visualListItem(item, labelKey, max, icon){
       <div class="exec-rank-body">
         <div class="exec-rank-head">
           <div>
-            <small class="rank-label">IPRESS / UNIDAD OPERATIVA</small>
+            
             <strong>${label}</strong>
           </div>
           <span>${pct}%</span>
@@ -257,7 +257,7 @@ function visualListItem(item, labelKey, max, icon){
       <div class="exec-rank-body">
         <div class="exec-rank-head">
           <div>
-            <small class="rank-label">IPRESS / UNIDAD OPERATIVA</small>
+            
             <strong>${label}</strong>
           </div>
           <span>${pct}%</span>
@@ -495,7 +495,7 @@ function renderIpressVerticalBars(d){
       <div class="barcode-main">
         <div class="barcode-head">
           <div>
-            <small>IPRESS / UNIDAD OPERATIVA</small>
+            
             <strong>${x.ESTABLECIMIENTO}</strong>
           </div>
           <div class="barcode-percent">${pct}%</div>
