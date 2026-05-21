@@ -182,6 +182,19 @@ function badgeCell(value){
   return `<span class="metric-badge ${cls}">${v}</span>`;
 }
 
+function makeBarcodeSeed(text){
+  const s = String(text || 'RISATE');
+  let bars = '';
+  for(let i=0;i<34;i++){
+    const code = s.charCodeAt(i % s.length) + i * 17;
+    const h = 22 + (code % 58);
+    const w = 2 + (code % 4);
+    const o = .38 + ((code % 50) / 100);
+    bars += `<span style="height:${h}px;width:${w}px;opacity:${o}"></span>`;
+  }
+  return bars;
+}
+
 function visualListItem(item, labelKey, max, icon){
   const atenciones = Number(item.atenciones || 0);
   const atendidos = Number(item.atendidos || 0);
@@ -189,15 +202,67 @@ function visualListItem(item, labelKey, max, icon){
   const pct = max ? Math.round((atenciones / max) * 100) : 0;
   const risk = concentracion >= 4 ? 'alto' : concentracion >= 2.5 ? 'medio' : 'bajo';
   const riskText = concentracion >= 4 ? 'Alta recurrencia' : concentracion >= 2.5 ? 'Recurrencia media' : 'Controlado';
+  const label = item[labelKey] || 'No definido';
 
   return `
-    <article class="exec-rank-card">
+    <article class="exec-rank-card barcode-card ${risk}">
+      <div class="barcode-bg">${makeBarcodeSeed(label)}</div>
       <div class="exec-rank-icon"><i class="fa-solid ${icon}"></i></div>
       <div class="exec-rank-body">
         <div class="exec-rank-head">
-          <strong>${item[labelKey]}</strong>
+          <div>
+            <small class="rank-label">IPRESS / UNIDAD OPERATIVA</small>
+            <strong>${label}</strong>
+          </div>
           <span>${pct}%</span>
         </div>
+        <div class="barcode-visual" aria-label="Código de barras visual">${makeBarcodeSeed(label + atenciones)}</div>
+        <div class="exec-rank-bar"><i style="width:${pct}%"></i></div>
+        <div class="exec-rank-metrics">
+          <div><small>Atenciones</small><b>${fmt.format(atenciones)}</b></div>
+          <div><small>Atendidos</small><b>${fmt.format(atendidos)}</b></div>
+          <div><small>Concentración</small><b>${concentracion}</b></div>
+          <div class="risk ${risk}"><small>Lectura</small><b>${riskText}</b></div>
+        </div>
+      </div>
+    </article>`;
+}
+
+function makeBarcodeSeed(text){
+  const s = String(text || 'RISATE');
+  let bars = '';
+  for(let i=0;i<34;i++){
+    const code = s.charCodeAt(i % s.length) + i * 17;
+    const h = 22 + (code % 58);
+    const w = 2 + (code % 4);
+    const o = .38 + ((code % 50) / 100);
+    bars += `<span style="height:${h}px;width:${w}px;opacity:${o}"></span>`;
+  }
+  return bars;
+}
+
+function visualListItem(item, labelKey, max, icon){
+  const atenciones = Number(item.atenciones || 0);
+  const atendidos = Number(item.atendidos || 0);
+  const concentracion = Number(item.concentracion || 0);
+  const pct = max ? Math.round((atenciones / max) * 100) : 0;
+  const risk = concentracion >= 4 ? 'alto' : concentracion >= 2.5 ? 'medio' : 'bajo';
+  const riskText = concentracion >= 4 ? 'Alta recurrencia' : concentracion >= 2.5 ? 'Recurrencia media' : 'Controlado';
+  const label = item[labelKey] || 'No definido';
+
+  return `
+    <article class="exec-rank-card barcode-card ${risk}">
+      <div class="barcode-bg">${makeBarcodeSeed(label)}</div>
+      <div class="exec-rank-icon"><i class="fa-solid ${icon}"></i></div>
+      <div class="exec-rank-body">
+        <div class="exec-rank-head">
+          <div>
+            <small class="rank-label">IPRESS / UNIDAD OPERATIVA</small>
+            <strong>${label}</strong>
+          </div>
+          <span>${pct}%</span>
+        </div>
+        <div class="barcode-visual" aria-label="Código de barras visual">${makeBarcodeSeed(label + atenciones)}</div>
         <div class="exec-rank-bar"><i style="width:${pct}%"></i></div>
         <div class="exec-rank-metrics">
           <div><small>Atenciones</small><b>${fmt.format(atenciones)}</b></div>
@@ -214,19 +279,15 @@ function renderTables(d){
   const upsBox = document.getElementById('rankingUpsVisual');
 
   if(estBox){
-    const maxEst = Math.max(...(d.establecimientos || []).map(x=>x.atenciones), 1);
-    estBox.innerHTML = (d.establecimientos || [])
-      .slice(0,8)
-      .map(x => visualListItem(x, 'ESTABLECIMIENTO', maxEst, 'fa-hospital'))
-      .join('');
+    const items = d.establecimientos || [];
+    const maxEst = Math.max(...items.map(x=>x.atenciones), 1);
+    estBox.innerHTML = items.slice(0,10).map(x => visualListItem(x, 'ESTABLECIMIENTO', maxEst, 'fa-hospital')).join('');
   }
 
   if(upsBox){
-    const maxUps = Math.max(...(d.ups || []).map(x=>x.atenciones), 1);
-    upsBox.innerHTML = (d.ups || [])
-      .slice(0,8)
-      .map(x => visualListItem(x, 'UPS_DESCRIPCION', maxUps, 'fa-layer-group'))
-      .join('');
+    const items = d.ups || [];
+    const maxUps = Math.max(...items.map(x=>x.atenciones), 1);
+    upsBox.innerHTML = items.slice(0,10).map(x => visualListItem(x, 'UPS_DESCRIPCION', maxUps, 'fa-layer-group')).join('');
   }
 }
 
