@@ -21,8 +21,40 @@ function buildFilter(){
   sel.addEventListener('change', ()=> renderAll(rawData));
 }
 
+function iconFor(label){
+  const map = {
+    'Atenciones':'fa-notes-medical','Atendidos':'fa-users','Concentración':'fa-wave-square','Calidad HIS':'fa-shield-halved',
+    'Establecimientos':'fa-hospital','UPS registradas':'fa-layer-group','Profesionales':'fa-user-doctor','Periodo':'fa-calendar-days'
+  };
+  return map[label] || 'fa-chart-simple';
+}
+
 function kpiCard(label,value,hint){
-  return `<article class="kpi"><div class="label">${label}</div><div class="value">${value}</div><div class="hint">${hint}</div></article>`;
+  return `<article class="kpi">
+    <div class="label">${label}</div>
+    <div class="value counter" data-target="${String(value).replace(/[^0-9.]/g,'')}" data-original="${value}">${value}</div>
+    <div class="hint">${hint}</div>
+    <i class="fa-solid ${iconFor(label)} icon"></i>
+  </article>`;
+}
+
+function animateCounters(){
+  document.querySelectorAll('.counter').forEach(el=>{
+    const original = el.dataset.original || el.textContent;
+    const target = Number(el.dataset.target);
+    if(!target || original.includes('-')) { el.textContent = original; return; }
+    let start = 0;
+    const duration = 950;
+    const t0 = performance.now();
+    function tick(now){
+      const p = Math.min((now - t0) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      const val = Math.round(start + (target - start) * eased);
+      el.textContent = original.includes('%') ? val + '%' : fmt.format(val);
+      if(p < 1) requestAnimationFrame(tick); else el.textContent = original;
+    }
+    requestAnimationFrame(tick);
+  });
 }
 
 function renderKPIs(d){
@@ -37,6 +69,7 @@ function renderKPIs(d){
     kpiCard('Profesionales', fmt.format(k.profesionales), 'RRHH que atiende'),
     kpiCard('Periodo', d.metadata.periodo, 'Corte de información')
   ].join('');
+  animateCounters();
 }
 
 function makeChart(id, type, labels, datasets, options={}){
@@ -118,3 +151,38 @@ function renderAll(d){
 }
 
 init();
+
+
+// Premium UX interactions
+function setupPremiumUX(){
+  const loader = document.getElementById('loader');
+  setTimeout(()=> loader?.classList.add('hidden'), 650);
+
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+  const sections = [...document.querySelectorAll('section[id]')];
+  const navLinks = [...document.querySelectorAll('nav a')];
+  const navObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        navLinks.forEach(a=>a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id));
+      }
+    });
+  },{threshold:.35});
+  sections.forEach(s=>navObserver.observe(s));
+
+  document.querySelectorAll('.panel,.kpi').forEach(card=>{
+    card.addEventListener('mousemove', e=>{
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', `${e.clientX-r.left}px`);
+      card.style.setProperty('--my', `${e.clientY-r.top}px`);
+    });
+  });
+}
+
+window.addEventListener('load', setupPremiumUX);

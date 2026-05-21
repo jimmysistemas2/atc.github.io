@@ -10,10 +10,13 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
   <script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div id="loader" class="loader"><div class="loader-orb"></div><p>Inicializando plataforma RIS Ate BI...</p></div>
   <div class="aurora"></div>
+  <div class="mesh"></div>
   <aside class="sidebar">
     <div class="brand">
       <div class="brand-mark">RA</div>
@@ -23,12 +26,12 @@
       </div>
     </div>
     <nav>
-      <a href="#resumen" class="active">Resumen</a>
-      <a href="#produccion">Producción</a>
-      <a href="#poblacion">Curso de vida</a>
-      <a href="#rrhh">RRHH</a>
-      <a href="#calidad">Calidad HIS</a>
-      <a href="#decisiones">Decisiones</a>
+      <a href="#resumen" class="active"><i class="fa-solid fa-gauge-high"></i> Resumen</a>
+      <a href="#produccion"><i class="fa-solid fa-chart-line"></i> Producción</a>
+      <a href="#poblacion"><i class="fa-solid fa-users-viewfinder"></i> Curso de vida</a>
+      <a href="#rrhh"><i class="fa-solid fa-user-doctor"></i> RRHH</a>
+      <a href="#calidad"><i class="fa-solid fa-shield-halved"></i> Calidad HIS</a>
+      <a href="#decisiones"><i class="fa-solid fa-brain"></i> Decisiones</a>
     </nav>
     <div class="side-card">
       <span>Estado</span>
@@ -50,9 +53,15 @@
       </div>
     </header>
 
-    <section id="resumen" class="grid kpi-grid"></section>
+    <section class="command-strip">
+      <div><i class="fa-solid fa-sparkles"></i><span>Modo ejecutivo premium</span></div>
+      <div><i class="fa-solid fa-bolt"></i><span>Frontend only</span></div>
+      <div><i class="fa-solid fa-cloud-arrow-up"></i><span>GitHub Pages ready</span></div>
+      <div><i class="fa-solid fa-circle-check"></i><span>Datos validados</span></div>
+    </section>
+    <section id="resumen" class="grid kpi-grid reveal"></section>
 
-    <section class="layout-2" id="produccion">
+    <section class="layout-2 reveal" id="produccion">
       <div class="panel large">
         <div class="panel-title">
           <div><h3>Tendencia de producción</h3><p>Atenciones vs atendidos por mes</p></div>
@@ -66,7 +75,7 @@
       </div>
     </section>
 
-    <section class="layout-2" id="poblacion">
+    <section class="layout-2 reveal" id="poblacion">
       <div class="panel">
         <div class="panel-title"><div><h3>Curso de vida</h3><p>Cobertura poblacional validada</p></div></div>
         <canvas id="courseChart"></canvas>
@@ -77,7 +86,7 @@
       </div>
     </section>
 
-    <section class="panel" id="heat">
+    <section class="panel reveal" id="heat">
       <div class="panel-title">
         <div><h3>Heatmap gerencial: establecimiento vs grupo de servicio</h3><p>Identifica concentración de carga asistencial</p></div>
         <span>Decisión: redistribuir recursos</span>
@@ -85,7 +94,7 @@
       <div id="heatmap"></div>
     </section>
 
-    <section class="layout-2" id="rrhh">
+    <section class="layout-2 reveal" id="rrhh">
       <div class="panel">
         <div class="panel-title"><div><h3>Producción por condición</h3><p>Dependencia operativa por vínculo laboral</p></div></div>
         <canvas id="conditionChart"></canvas>
@@ -96,7 +105,7 @@
       </div>
     </section>
 
-    <section class="grid table-grid">
+    <section class="grid table-grid reveal">
       <div class="panel">
         <div class="panel-title"><div><h3>Ranking de establecimientos</h3><p>Producción y cobertura</p></div></div>
         <table id="tablaEstablecimientos" class="display"></table>
@@ -107,7 +116,7 @@
       </div>
     </section>
 
-    <section class="panel" id="calidad">
+    <section class="panel reveal" id="calidad">
       <div class="panel-title">
         <div><h3>Alertas de calidad de datos</h3><p>Registros observados para corrección antes del indicador oficial</p></div>
         <span>Decisión: intervención HIS focalizada</span>
@@ -115,7 +124,7 @@
       <div id="alerts" class="alerts"></div>
     </section>
 
-    <section class="panel" id="decisiones">
+    <section class="panel reveal" id="decisiones">
       <div class="panel-title"><div><h3>Insights automáticos</h3><p>Lectura ejecutiva para toma de decisiones</p></div></div>
       <div id="insights" class="insights"></div>
     </section>
