@@ -439,3 +439,718 @@ table.display {
   .exec-rank-card{grid-template-columns:1fr}
   .exec-rank-metrics{grid-template-columns:1fr 1fr}
 }
+
+/* ===== FINAL V7: eliminación total de DataTables ===== */
+.dt-container,
+.dataTables_wrapper,
+.dataTables_length,
+.dataTables_filter,
+.dataTables_info,
+.dataTables_paginate,
+table,
+table.display,
+#tablaEstablecimientos,
+#tablaUps {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  overflow: hidden !important;
+}
+
+#rankings-ejecutivos .panel {
+  min-height: 640px;
+}
+
+.executive-list{
+  display:grid !important;
+  gap:14px;
+  max-height:620px;
+  overflow:auto;
+  padding-right:6px;
+}
+
+.exec-rank-card{
+  display:grid;
+  grid-template-columns:54px 1fr;
+  gap:14px;
+  padding:16px;
+  border-radius:24px;
+  background:linear-gradient(145deg,rgba(255,255,255,.13),rgba(255,255,255,.045));
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 18px 50px rgba(0,0,0,.16);
+  transition:.32s cubic-bezier(.2,.8,.2,1);
+  position:relative;
+  overflow:hidden;
+}
+
+.exec-rank-card:hover{
+  transform:translateY(-5px) scale(1.01);
+  box-shadow:0 28px 80px rgba(0,0,0,.28),0 0 42px rgba(38,217,255,.10);
+}
+
+.exec-rank-icon{
+  width:54px;
+  height:54px;
+  border-radius:18px;
+  display:grid;
+  place-items:center;
+  color:#fff;
+  background:linear-gradient(135deg,rgba(38,217,255,.30),rgba(155,92,255,.24));
+  box-shadow:0 0 26px rgba(38,217,255,.20);
+}
+
+.exec-rank-head{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:10px;
+}
+
+.exec-rank-head strong{
+  color:#fff;
+  font-size:15px;
+  line-height:1.25;
+  max-width:78%;
+}
+
+.exec-rank-head span{
+  padding:7px 10px;
+  border-radius:999px;
+  background:rgba(38,217,255,.13);
+  border:1px solid rgba(38,217,255,.22);
+  color:#bff4ff;
+  font-size:12px;
+  font-weight:800;
+}
+
+.exec-rank-bar{
+  height:10px;
+  border-radius:999px;
+  overflow:hidden;
+  background:rgba(255,255,255,.08);
+  margin-bottom:12px;
+}
+
+.exec-rank-bar i{
+  display:block;
+  height:100%;
+  border-radius:999px;
+  background:linear-gradient(90deg,var(--cyan),var(--blue),var(--violet));
+  box-shadow:0 0 22px rgba(38,217,255,.30);
+}
+
+.exec-rank-metrics{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+}
+
+.exec-rank-metrics div{
+  padding:10px;
+  border-radius:16px;
+  background:rgba(255,255,255,.065);
+  border:1px solid rgba(255,255,255,.08);
+}
+
+.exec-rank-metrics small{
+  display:block;
+  color:#9fb4ce;
+  font-size:11px;
+  margin-bottom:4px;
+}
+
+.exec-rank-metrics b{
+  display:block;
+  color:#eef7ff;
+  font-size:14px;
+}
+
+.exec-rank-metrics .risk.alto{
+  background:rgba(255,92,138,.13);
+  border-color:rgba(255,92,138,.25);
+}
+
+.exec-rank-metrics .risk.medio{
+  background:rgba(255,209,102,.12);
+  border-color:rgba(255,209,102,.25);
+}
+
+.exec-rank-metrics .risk.bajo{
+  background:rgba(80,245,168,.10);
+  border-color:rgba(80,245,168,.22);
+}
+
+
+/* ===== V8 Barcode Premium IPRESS Ranking ===== */
+.barcode-card{
+  min-height:190px;
+  grid-template-columns:64px 1fr;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.16),rgba(255,255,255,.045)),
+    radial-gradient(circle at 90% 10%,rgba(38,217,255,.16),transparent 34%);
+}
+
+.barcode-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  padding:1px;
+  background:linear-gradient(135deg,rgba(38,217,255,.55),rgba(155,92,255,.25),rgba(255,255,255,.07));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  pointer-events:none;
+}
+
+.barcode-bg{
+  position:absolute;
+  right:16px;
+  top:14px;
+  display:flex;
+  align-items:flex-start;
+  gap:3px;
+  opacity:.13;
+  transform:skewX(-8deg);
+  pointer-events:none;
+}
+
+.barcode-bg span{
+  display:block;
+  border-radius:999px;
+  background:linear-gradient(180deg,#fff,var(--cyan));
+  box-shadow:0 0 12px rgba(38,217,255,.25);
+}
+
+.barcode-visual{
+  height:72px;
+  display:flex;
+  align-items:end;
+  gap:4px;
+  padding:12px 14px;
+  border-radius:20px;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.035)),
+    repeating-linear-gradient(90deg,rgba(255,255,255,.04) 0 1px,transparent 1px 10px);
+  border:1px solid rgba(255,255,255,.10);
+  margin:12px 0;
+  overflow:hidden;
+  position:relative;
+}
+
+.barcode-visual::after{
+  content:"";
+  position:absolute;
+  left:-35%;
+  top:0;
+  width:28%;
+  height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);
+  transform:skewX(-18deg);
+  animation:barcodeScan 3.4s ease-in-out infinite;
+}
+
+@keyframes barcodeScan{
+  0%{left:-35%;opacity:0}
+  20%{opacity:1}
+  60%{opacity:1}
+  100%{left:120%;opacity:0}
+}
+
+.barcode-visual span{
+  display:block;
+  border-radius:999px 999px 4px 4px;
+  background:linear-gradient(180deg,#eaffff,var(--cyan) 45%,var(--blue));
+  box-shadow:0 0 14px rgba(38,217,255,.32);
+  animation:barcodeRise .75s ease both;
+}
+
+.barcode-visual span:nth-child(3n){background:linear-gradient(180deg,#fff,var(--violet));}
+.barcode-visual span:nth-child(4n){background:linear-gradient(180deg,#fff,var(--green));}
+.barcode-visual span:nth-child(5n){opacity:.55!important}
+
+@keyframes barcodeRise{
+  from{transform:scaleY(.2);filter:blur(1px)}
+  to{transform:scaleY(1);filter:blur(0)}
+}
+
+.rank-label{
+  display:block;
+  color:var(--cyan);
+  font-size:10px;
+  letter-spacing:.16em;
+  font-weight:800;
+  text-transform:uppercase;
+  margin-bottom:5px;
+}
+
+.barcode-card .exec-rank-head strong{
+  font-size:18px;
+  letter-spacing:-.01em;
+  text-shadow:0 0 18px rgba(38,217,255,.12);
+}
+
+.barcode-card .exec-rank-head span{
+  min-width:58px;
+  text-align:center;
+  background:linear-gradient(135deg,rgba(38,217,255,.18),rgba(155,92,255,.18));
+  box-shadow:0 0 24px rgba(38,217,255,.13);
+}
+
+.barcode-card.alto{
+  box-shadow:0 20px 70px rgba(0,0,0,.22),0 0 0 1px rgba(255,92,138,.10);
+}
+
+.barcode-card.medio{
+  box-shadow:0 20px 70px rgba(0,0,0,.20),0 0 0 1px rgba(255,209,102,.08);
+}
+
+.barcode-card.bajo{
+  box-shadow:0 20px 70px rgba(0,0,0,.20),0 0 0 1px rgba(80,245,168,.08);
+}
+
+.barcode-card:hover .barcode-visual span{
+  animation:barcodePulse .65s ease both;
+}
+
+@keyframes barcodePulse{
+  50%{transform:scaleY(1.14);filter:brightness(1.28)}
+}
+
+#rankingEstablecimientosVisual.executive-list{
+  gap:18px;
+}
+
+#rankings-ejecutivos .panel:first-child{
+  background:
+    linear-gradient(145deg,rgba(38,217,255,.08),rgba(255,255,255,.045)),
+    rgba(255,255,255,.05);
+}
+
+@media(max-width:900px){
+  .barcode-card{grid-template-columns:1fr}
+  .barcode-visual{height:62px}
+}
+
+
+/* ===== V9 Vertical premium bars + life icons ===== */
+.vertical-bars-premium{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:14px;
+  min-height:360px;
+  align-items:end;
+  padding:20px 8px 6px;
+}
+
+.vbar-card{
+  min-height:330px;
+  display:grid;
+  grid-template-rows:auto 1fr auto;
+  gap:10px;
+  padding:12px;
+  border-radius:24px;
+  background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.04));
+  border:1px solid rgba(255,255,255,.11);
+  position:relative;
+  overflow:hidden;
+  transition:.3s ease;
+}
+
+.vbar-card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 28px 80px rgba(0,0,0,.3),0 0 42px rgba(38,217,255,.14);
+}
+
+.vbar-value{
+  text-align:center;
+  color:#fff;
+  font-weight:900;
+  font-size:13px;
+}
+
+.vbar-wrap{
+  height:210px;
+  display:flex;
+  align-items:end;
+  justify-content:center;
+  position:relative;
+  border-radius:18px;
+  background:repeating-linear-gradient(180deg,rgba(255,255,255,.05) 0 1px,transparent 1px 24px);
+  overflow:hidden;
+}
+
+.vbar{
+  width:46%;
+  min-height:10px;
+  border-radius:16px 16px 4px 4px;
+  background:linear-gradient(180deg,#eaffff,var(--cyan) 42%,var(--blue));
+  box-shadow:0 0 28px rgba(38,217,255,.38);
+  position:relative;
+  animation:growBar 1s ease both;
+}
+
+.vbar span{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.32),transparent);
+  animation:barShine 2.6s ease-in-out infinite;
+}
+
+.vbar-glow{
+  position:absolute;
+  bottom:0;
+  width:70%;
+  background:linear-gradient(180deg,rgba(38,217,255,.12),rgba(38,217,255,.02));
+  filter:blur(8px);
+}
+
+@keyframes growBar{from{height:0}to{}}
+@keyframes barShine{0%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
+
+.vbar-meta strong{
+  display:block;
+  color:#fff;
+  font-size:12px;
+  line-height:1.15;
+  min-height:34px;
+  overflow:hidden;
+}
+
+.vbar-meta small{
+  display:block;
+  color:#9fb4ce;
+  font-size:10px;
+  margin-top:6px;
+}
+
+.vbar-card.high .vbar{background:linear-gradient(180deg,#fff,var(--danger),#7f1d3f)}
+.vbar-card.mid .vbar{background:linear-gradient(180deg,#fff,var(--warn),#9a6700)}
+.vbar-card.low .vbar{background:linear-gradient(180deg,#fff,var(--green),#0f766e)}
+
+.life-course-icons{
+  display:grid;
+  gap:14px;
+}
+
+.life-card{
+  display:grid;
+  grid-template-columns:58px 1fr 58px;
+  align-items:center;
+  gap:14px;
+  padding:15px;
+  border-radius:22px;
+  background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.045));
+  border:1px solid rgba(255,255,255,.1);
+  transition:.28s ease;
+}
+
+.life-card:hover{
+  transform:translateX(6px);
+  box-shadow:0 22px 60px rgba(0,0,0,.24),0 0 34px rgba(38,217,255,.10);
+}
+
+.life-icon{
+  width:58px;
+  height:58px;
+  border-radius:20px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,rgba(38,217,255,.28),rgba(155,92,255,.22));
+  color:#fff;
+  font-size:24px;
+  box-shadow:0 0 28px rgba(38,217,255,.18);
+}
+
+.life-info strong{
+  color:#fff;
+  display:block;
+  font-size:16px;
+}
+
+.life-info small{
+  color:#9fb4ce;
+  display:block;
+  margin:4px 0 10px;
+}
+
+.life-track{
+  height:9px;
+  border-radius:999px;
+  background:rgba(255,255,255,.08);
+  overflow:hidden;
+}
+
+.life-track i{
+  display:block;
+  height:100%;
+  border-radius:999px;
+  background:linear-gradient(90deg,var(--cyan),var(--violet));
+  box-shadow:0 0 18px rgba(38,217,255,.25);
+}
+
+.life-percent{
+  width:54px;
+  height:54px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  font-weight:900;
+  color:#bff4ff;
+  border:1px solid rgba(38,217,255,.24);
+  background:rgba(38,217,255,.08);
+}
+
+@media(max-width:1200px){
+  .vertical-bars-premium{grid-template-columns:repeat(6,1fr)}
+}
+
+@media(max-width:700px){
+  .vertical-bars-premium{grid-template-columns:repeat(2,1fr)}
+  .life-card{grid-template-columns:1fr}
+  .life-percent{width:auto;border-radius:999px;height:auto;padding:8px 12px}
+}
+
+
+/* ===== V10 Ranking IPRESS estilo código de barras espectacular ===== */
+.barcode-ranking-premium{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:18px;
+}
+
+.barcode-exec-card{
+  position:relative;
+  display:grid;
+  grid-template-columns:64px 1fr;
+  gap:16px;
+  padding:18px;
+  min-height:245px;
+  border-radius:30px;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 85% 8%,rgba(38,217,255,.20),transparent 32%),
+    radial-gradient(circle at 12% 100%,rgba(155,92,255,.16),transparent 35%),
+    linear-gradient(145deg,rgba(255,255,255,.155),rgba(255,255,255,.045));
+  border:1px solid rgba(255,255,255,.14);
+  box-shadow:0 26px 80px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.08);
+  transition:.38s cubic-bezier(.2,.8,.2,1);
+}
+
+.barcode-exec-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  padding:1px;
+  background:linear-gradient(135deg,rgba(38,217,255,.65),rgba(155,92,255,.35),rgba(80,245,168,.18));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  pointer-events:none;
+}
+
+.barcode-exec-card::after{
+  content:"";
+  position:absolute;
+  inset:-40%;
+  background:linear-gradient(120deg,transparent 42%,rgba(255,255,255,.10),transparent 58%);
+  transform:translateX(-60%) rotate(8deg);
+  animation:premiumSweep 5s ease-in-out infinite;
+  pointer-events:none;
+}
+
+@keyframes premiumSweep{
+  0%,35%{transform:translateX(-70%) rotate(8deg);opacity:0}
+  50%{opacity:1}
+  78%,100%{transform:translateX(70%) rotate(8deg);opacity:0}
+}
+
+.barcode-exec-card:hover{
+  transform:translateY(-8px) scale(1.012);
+  box-shadow:0 40px 110px rgba(0,0,0,.38),0 0 60px rgba(38,217,255,.16);
+}
+
+.barcode-rank{
+  width:58px;
+  height:58px;
+  display:grid;
+  place-items:center;
+  border-radius:20px;
+  font-weight:950;
+  color:#fff;
+  background:linear-gradient(135deg,var(--cyan),var(--violet));
+  box-shadow:0 0 34px rgba(38,217,255,.30);
+  z-index:1;
+}
+
+.barcode-main{z-index:1;min-width:0}
+
+.barcode-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:14px;
+  margin-bottom:14px;
+}
+
+.barcode-head small{
+  display:block;
+  color:var(--cyan);
+  font-size:10px;
+  letter-spacing:.17em;
+  font-weight:900;
+  text-transform:uppercase;
+  margin-bottom:6px;
+}
+
+.barcode-head strong{
+  display:block;
+  color:#fff;
+  font-size:20px;
+  line-height:1.12;
+  letter-spacing:-.02em;
+  text-shadow:0 0 24px rgba(38,217,255,.14);
+}
+
+.barcode-percent{
+  min-width:68px;
+  height:44px;
+  display:grid;
+  place-items:center;
+  border-radius:999px;
+  font-weight:950;
+  color:#bff4ff;
+  background:linear-gradient(135deg,rgba(38,217,255,.20),rgba(155,92,255,.17));
+  border:1px solid rgba(38,217,255,.30);
+  box-shadow:0 0 28px rgba(38,217,255,.14);
+}
+
+.barcode-strip{
+  position:relative;
+  height:118px;
+  padding:14px 16px;
+  border-radius:24px;
+  overflow:hidden;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.035)),
+    repeating-linear-gradient(90deg,rgba(255,255,255,.055) 0 1px,transparent 1px 12px);
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:inset 0 0 35px rgba(0,0,0,.15);
+}
+
+.barcode-lines{
+  height:100%;
+  display:flex;
+  align-items:end;
+  gap:4px;
+}
+
+.barcode-lines span{
+  display:block;
+  border-radius:999px 999px 5px 5px;
+  background:linear-gradient(180deg,#ffffff,var(--cyan) 35%,var(--blue));
+  box-shadow:0 0 18px rgba(38,217,255,.36);
+  animation:barcodeWave 2.8s ease-in-out infinite;
+}
+
+.barcode-lines span:nth-child(3n){
+  background:linear-gradient(180deg,#fff,var(--violet));
+  box-shadow:0 0 16px rgba(155,92,255,.34);
+}
+
+.barcode-lines span:nth-child(5n){
+  background:linear-gradient(180deg,#fff,var(--green));
+  box-shadow:0 0 16px rgba(80,245,168,.30);
+}
+
+@keyframes barcodeWave{
+  0%,100%{transform:scaleY(1);filter:brightness(1)}
+  50%{transform:scaleY(1.08);filter:brightness(1.28)}
+}
+
+.barcode-light{
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:-30%;
+  width:24%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.28),transparent);
+  transform:skewX(-18deg);
+  animation:scanLine 3.1s ease-in-out infinite;
+  z-index:2;
+}
+
+@keyframes scanLine{
+  0%{left:-35%;opacity:0}
+  20%{opacity:1}
+  70%{opacity:1}
+  100%{left:120%;opacity:0}
+}
+
+.barcode-progress{
+  height:10px;
+  margin:14px 0;
+  border-radius:999px;
+  background:rgba(255,255,255,.08);
+  overflow:hidden;
+}
+
+.barcode-progress i{
+  display:block;
+  height:100%;
+  border-radius:999px;
+  background:linear-gradient(90deg,var(--cyan),var(--blue),var(--violet));
+  box-shadow:0 0 22px rgba(38,217,255,.34);
+}
+
+.barcode-metrics{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+
+.barcode-metrics div{
+  padding:11px;
+  border-radius:18px;
+  background:rgba(255,255,255,.065);
+  border:1px solid rgba(255,255,255,.08);
+}
+
+.barcode-metrics small{
+  display:block;
+  color:#9fb4ce;
+  font-size:11px;
+  margin-bottom:5px;
+}
+
+.barcode-metrics b{
+  display:block;
+  color:#f3fbff;
+  font-size:14px;
+}
+
+.barcode-exec-card.critical .status{
+  background:rgba(255,92,138,.14);
+  border-color:rgba(255,92,138,.30);
+}
+
+.barcode-exec-card.warning .status{
+  background:rgba(255,209,102,.13);
+  border-color:rgba(255,209,102,.28);
+}
+
+.barcode-exec-card.stable .status{
+  background:rgba(80,245,168,.11);
+  border-color:rgba(80,245,168,.24);
+}
+
+@media(max-width:1200px){
+  .barcode-ranking-premium{grid-template-columns:1fr}
+}
+
+@media(max-width:720px){
+  .barcode-exec-card{grid-template-columns:1fr}
+  .barcode-metrics{grid-template-columns:1fr 1fr}
+  .barcode-strip{height:96px}
+}
