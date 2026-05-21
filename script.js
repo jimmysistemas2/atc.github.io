@@ -182,26 +182,52 @@ function badgeCell(value){
   return `<span class="metric-badge ${cls}">${v}</span>`;
 }
 
-function renderTables(d){
-  const maxEst = Math.max(...(d.establecimientos || []).map(x=>x.atenciones), 1);
-  const maxUps = Math.max(...(d.ups || []).map(x=>x.atenciones), 1);
+function visualListItem(item, labelKey, max, icon){
+  const atenciones = Number(item.atenciones || 0);
+  const atendidos = Number(item.atendidos || 0);
+  const concentracion = Number(item.concentracion || 0);
+  const pct = max ? Math.round((atenciones / max) * 100) : 0;
+  const risk = concentracion >= 4 ? 'alto' : concentracion >= 2.5 ? 'medio' : 'bajo';
+  const riskText = concentracion >= 4 ? 'Alta recurrencia' : concentracion >= 2.5 ? 'Recurrencia media' : 'Controlado';
 
-  const estCols = [
-    {title:'IPRESS',data:'ESTABLECIMIENTO',render:x=>`<div class="name-cell"><i class="fa-solid fa-hospital"></i><span>${x}</span></div>`},
-    {title:'Atenciones',data:'atenciones',render:x=>barCell(x,maxEst,'cyan')},
-    {title:'Atendidos',data:'atendidos',render:x=>`<div class="pill-number"><i class="fa-solid fa-users"></i>${fmt.format(x)}</div>`},
-    {title:'Concentración',data:'concentracion',render:x=>badgeCell(x)}
-  ];
-  const upsCols = [
-    {title:'UPS',data:'UPS_DESCRIPCION',render:x=>`<div class="name-cell"><i class="fa-solid fa-layer-group"></i><span>${x}</span></div>`},
-    {title:'Atenciones',data:'atenciones',render:x=>barCell(x,maxUps,'violet')},
-    {title:'Atendidos',data:'atendidos',render:x=>`<div class="pill-number"><i class="fa-solid fa-user-check"></i>${fmt.format(x)}</div>`},
-    {title:'Concentración',data:'concentracion',render:x=>badgeCell(x)}
-  ];
-  if($.fn.DataTable.isDataTable('#tablaEstablecimientos')) $('#tablaEstablecimientos').DataTable().destroy();
-  if($.fn.DataTable.isDataTable('#tablaUps')) $('#tablaUps').DataTable().destroy();
-  $('#tablaEstablecimientos').DataTable({data:d.establecimientos,columns:estCols,pageLength:6,order:[[1,'desc']],deferRender:true});
-  $('#tablaUps').DataTable({data:d.ups,columns:upsCols,pageLength:6,order:[[1,'desc']],deferRender:true});
+  return `
+    <article class="exec-rank-card">
+      <div class="exec-rank-icon"><i class="fa-solid ${icon}"></i></div>
+      <div class="exec-rank-body">
+        <div class="exec-rank-head">
+          <strong>${item[labelKey]}</strong>
+          <span>${pct}%</span>
+        </div>
+        <div class="exec-rank-bar"><i style="width:${pct}%"></i></div>
+        <div class="exec-rank-metrics">
+          <div><small>Atenciones</small><b>${fmt.format(atenciones)}</b></div>
+          <div><small>Atendidos</small><b>${fmt.format(atendidos)}</b></div>
+          <div><small>Concentración</small><b>${concentracion}</b></div>
+          <div class="risk ${risk}"><small>Lectura</small><b>${riskText}</b></div>
+        </div>
+      </div>
+    </article>`;
+}
+
+function renderTables(d){
+  const estBox = document.getElementById('rankingEstablecimientosVisual');
+  const upsBox = document.getElementById('rankingUpsVisual');
+
+  if(estBox){
+    const maxEst = Math.max(...(d.establecimientos || []).map(x=>x.atenciones), 1);
+    estBox.innerHTML = (d.establecimientos || [])
+      .slice(0,8)
+      .map(x => visualListItem(x, 'ESTABLECIMIENTO', maxEst, 'fa-hospital'))
+      .join('');
+  }
+
+  if(upsBox){
+    const maxUps = Math.max(...(d.ups || []).map(x=>x.atenciones), 1);
+    upsBox.innerHTML = (d.ups || [])
+      .slice(0,8)
+      .map(x => visualListItem(x, 'UPS_DESCRIPCION', maxUps, 'fa-layer-group'))
+      .join('');
+  }
 }
 
 function renderAlerts(d){

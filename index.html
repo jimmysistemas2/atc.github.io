@@ -7,9 +7,6 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
-  <script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -135,12 +132,18 @@
 
     <section class="grid table-grid reveal">
       <div class="panel">
-        <div class="panel-title"><div><h3>Ranking de establecimientos</h3><p>Producción y cobertura</p></div></div>
-        <table id="tablaEstablecimientos" class="display"></table>
+        <div class="panel-title">
+          <div><h3>Ranking visual de establecimientos</h3><p>Producción, cobertura y concentración</p></div>
+          <span>Decisión: priorizar IPRESS</span>
+        </div>
+        <div id="rankingEstablecimientosVisual" class="executive-list"></div>
       </div>
       <div class="panel">
-        <div class="panel-title"><div><h3>Ranking de UPS</h3><p>Servicios con mayor demanda</p></div></div>
-        <table id="tablaUps" class="display"></table>
+        <div class="panel-title">
+          <div><h3>Ranking visual de UPS</h3><p>Servicios con mayor demanda</p></div>
+          <span>Decisión: reforzar servicios</span>
+        </div>
+        <div id="rankingUpsVisual" class="executive-list"></div>
       </div>
     </section>
 
