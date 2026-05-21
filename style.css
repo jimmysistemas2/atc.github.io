@@ -1444,3 +1444,12 @@ table.display,
     width:max-content;
   }
 }
+
+
+.topbar{backdrop-filter:blur(18px);border-radius:28px;}
+.sidebar{border-radius:0 28px 28px 0;}
+.panel,.barcode-exec-card,.exec-rank-card,.life-card{border-radius:28px!important;}
+.kpi .value{font-size:42px!important;font-weight:900;}
+.panel-title h3{font-size:28px;font-weight:800;}
+canvas{max-height:420px!important;}
+
