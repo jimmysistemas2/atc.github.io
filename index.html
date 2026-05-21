@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard Ejecutivo RIS Ate</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
+  <script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="aurora"></div>
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">RA</div>
+      <div>
+        <h1>RIS Ate BI</h1>
+        <p>Executive Health Intelligence</p>
+      </div>
+    </div>
+    <nav>
+      <a href="#resumen" class="active">Resumen</a>
+      <a href="#produccion">Producción</a>
+      <a href="#poblacion">Curso de vida</a>
+      <a href="#rrhh">RRHH</a>
+      <a href="#calidad">Calidad HIS</a>
+      <a href="#decisiones">Decisiones</a>
+    </nav>
+    <div class="side-card">
+      <span>Estado</span>
+      <strong>Operativo</strong>
+      <small>GitHub Pages Ready</small>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Dashboard Ejecutivo Premium</p>
+        <h2 id="title">Inteligencia Sanitaria RIS Ate</h2>
+        <p id="subtitle">Producción asistencial, cobertura, RRHH y calidad de datos</p>
+      </div>
+      <div class="actions">
+        <select id="filterEstablecimiento"></select>
+        <button onclick="window.print()">Exportar PDF</button>
+      </div>
+    </header>
+
+    <section id="resumen" class="grid kpi-grid"></section>
+
+    <section class="layout-2" id="produccion">
+      <div class="panel large">
+        <div class="panel-title">
+          <div><h3>Tendencia de producción</h3><p>Atenciones vs atendidos por mes</p></div>
+          <span>Decisión: anticipar demanda</span>
+        </div>
+        <canvas id="trendChart"></canvas>
+      </div>
+      <div class="panel">
+        <div class="panel-title"><div><h3>Mix de servicios</h3><p>Grupos asistenciales</p></div></div>
+        <canvas id="donutChart"></canvas>
+      </div>
+    </section>
+
+    <section class="layout-2" id="poblacion">
+      <div class="panel">
+        <div class="panel-title"><div><h3>Curso de vida</h3><p>Cobertura poblacional validada</p></div></div>
+        <canvas id="courseChart"></canvas>
+      </div>
+      <div class="panel">
+        <div class="panel-title"><div><h3>Radar estratégico</h3><p>Demanda sanitaria por línea</p></div></div>
+        <canvas id="radarChart"></canvas>
+      </div>
+    </section>
+
+    <section class="panel" id="heat">
+      <div class="panel-title">
+        <div><h3>Heatmap gerencial: establecimiento vs grupo de servicio</h3><p>Identifica concentración de carga asistencial</p></div>
+        <span>Decisión: redistribuir recursos</span>
+      </div>
+      <div id="heatmap"></div>
+    </section>
+
+    <section class="layout-2" id="rrhh">
+      <div class="panel">
+        <div class="panel-title"><div><h3>Producción por condición</h3><p>Dependencia operativa por vínculo laboral</p></div></div>
+        <canvas id="conditionChart"></canvas>
+      </div>
+      <div class="panel">
+        <div class="panel-title"><div><h3>Gauge de calidad</h3><p>Índice compuesto de consistencia</p></div></div>
+        <div id="gauge"></div>
+      </div>
+    </section>
+
+    <section class="grid table-grid">
+      <div class="panel">
+        <div class="panel-title"><div><h3>Ranking de establecimientos</h3><p>Producción y cobertura</p></div></div>
+        <table id="tablaEstablecimientos" class="display"></table>
+      </div>
+      <div class="panel">
+        <div class="panel-title"><div><h3>Ranking de UPS</h3><p>Servicios con mayor demanda</p></div></div>
+        <table id="tablaUps" class="display"></table>
+      </div>
+    </section>
+
+    <section class="panel" id="calidad">
+      <div class="panel-title">
+        <div><h3>Alertas de calidad de datos</h3><p>Registros observados para corrección antes del indicador oficial</p></div>
+        <span>Decisión: intervención HIS focalizada</span>
+      </div>
+      <div id="alerts" class="alerts"></div>
+    </section>
+
+    <section class="panel" id="decisiones">
+      <div class="panel-title"><div><h3>Insights automáticos</h3><p>Lectura ejecutiva para toma de decisiones</p></div></div>
+      <div id="insights" class="insights"></div>
+    </section>
+
+    <footer>
+      <span>RIS Ate BI Dashboard</span>
+      <span id="periodo"></span>
+      <span>Frontend only · GitHub Pages</span>
+    </footer>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

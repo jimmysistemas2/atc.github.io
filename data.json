@@ -1,0 +1,585 @@
+{
+  "metadata": {
+    "title": "Dashboard Ejecutivo RIS Ate",
+    "subtitle": "Inteligencia sanitaria, producción asistencial y calidad de datos",
+    "periodo": "2026-01-01 al 2026-05-16",
+    "generated": "2026-05-21 17:47",
+    "source": "RIS ATE FD 17.05.2026.csv"
+  },
+  "kpis": {
+    "atenciones": 307834,
+    "atendidos": 83019,
+    "concentracion": 3.71,
+    "establecimientos": 12,
+    "ups": 56,
+    "profesionales": 561,
+    "calidad": 91.86
+  },
+  "monthly": [
+    {
+      "periodo": "2026-01",
+      "atenciones": 60757,
+      "atendidos": 24721
+    },
+    {
+      "periodo": "2026-02",
+      "atenciones": 69588,
+      "atendidos": 28143
+    },
+    {
+      "periodo": "2026-03",
+      "atenciones": 75346,
+      "atendidos": 31626
+    },
+    {
+      "periodo": "2026-04",
+      "atenciones": 77351,
+      "atendidos": 34245
+    },
+    {
+      "periodo": "2026-05",
+      "atenciones": 24792,
+      "atendidos": 14897
+    }
+  ],
+  "establecimientos": [
+    {
+      "ESTABLECIMIENTO": "FORTALEZA",
+      "atenciones": 57468,
+      "atendidos": 17724,
+      "concentracion": 3.24
+    },
+    {
+      "ESTABLECIMIENTO": "SAN FERNANDO",
+      "atenciones": 40465,
+      "atendidos": 10577,
+      "concentracion": 3.83
+    },
+    {
+      "ESTABLECIMIENTO": "MICAELA BASTIDAS",
+      "atenciones": 37413,
+      "atendidos": 14092,
+      "concentracion": 2.65
+    },
+    {
+      "ESTABLECIMIENTO": "ALFA Y OMEGA",
+      "atenciones": 37215,
+      "atendidos": 11173,
+      "concentracion": 3.33
+    },
+    {
+      "ESTABLECIMIENTO": "EL BOSQUE",
+      "atenciones": 24824,
+      "atendidos": 5061,
+      "concentracion": 4.9
+    },
+    {
+      "ESTABLECIMIENTO": "GUSTAVO LANATTA",
+      "atenciones": 23100,
+      "atendidos": 6650,
+      "concentracion": 3.47
+    },
+    {
+      "ESTABLECIMIENTO": "SALAMANCA",
+      "atenciones": 21138,
+      "atendidos": 7544,
+      "concentracion": 2.8
+    },
+    {
+      "ESTABLECIMIENTO": "ATE",
+      "atenciones": 20090,
+      "atendidos": 6292,
+      "concentracion": 3.19
+    },
+    {
+      "ESTABLECIMIENTO": "CENTRO DE SALUD MENTAL COMUNITARIO SANTISIMA VIRGEN DE LA CRUZ",
+      "atenciones": 18713,
+      "atendidos": 2401,
+      "concentracion": 7.79
+    },
+    {
+      "ESTABLECIMIENTO": "TUPAC AMARU",
+      "atenciones": 16731,
+      "atendidos": 4476,
+      "concentracion": 3.74
+    },
+    {
+      "ESTABLECIMIENTO": "CENTRO DE SALUD MENTAL COMUNITARIO SAYARIY",
+      "atenciones": 8874,
+      "atendidos": 866,
+      "concentracion": 10.25
+    },
+    {
+      "ESTABLECIMIENTO": "HOGAR PROTEGIDO ATE",
+      "atenciones": 1803,
+      "atendidos": 6,
+      "concentracion": 300.5
+    }
+  ],
+  "ups": [
+    {
+      "UPS_DESCRIPCION": "MEDICINA GENERAL",
+      "atenciones": 57929,
+      "atendidos": 30938,
+      "concentracion": 1.87
+    },
+    {
+      "UPS_DESCRIPCION": "INMUNIZACIONES",
+      "atenciones": 37656,
+      "atendidos": 32284,
+      "concentracion": 1.17
+    },
+    {
+      "UPS_DESCRIPCION": "ATENCION EN SALUD FAMILIAR Y COMUNITARIA",
+      "atenciones": 35581,
+      "atendidos": 20117,
+      "concentracion": 1.77
+    },
+    {
+      "UPS_DESCRIPCION": "OBSTETRICIA",
+      "atenciones": 31483,
+      "atendidos": 14305,
+      "concentracion": 2.2
+    },
+    {
+      "UPS_DESCRIPCION": "PSICOLOGIA",
+      "atenciones": 22047,
+      "atendidos": 9529,
+      "concentracion": 2.31
+    },
+    {
+      "UPS_DESCRIPCION": "CONSULTORIO CONTROL TUBERCULOSIS",
+      "atenciones": 19363,
+      "atendidos": 4081,
+      "concentracion": 4.74
+    },
+    {
+      "UPS_DESCRIPCION": "CIRUGIA EN CONSULTORIO EXTERNO / TOPICO",
+      "atenciones": 18488,
+      "atendidos": 8709,
+      "concentracion": 2.12
+    },
+    {
+      "UPS_DESCRIPCION": "NUTRICION",
+      "atenciones": 17210,
+      "atendidos": 9935,
+      "concentracion": 1.73
+    },
+    {
+      "UPS_DESCRIPCION": "ODONTOLOGIA GENERAL",
+      "atenciones": 16411,
+      "atendidos": 8915,
+      "concentracion": 1.84
+    },
+    {
+      "UPS_DESCRIPCION": "ENFERMERIA",
+      "atenciones": 15467,
+      "atendidos": 4641,
+      "concentracion": 3.33
+    },
+    {
+      "UPS_DESCRIPCION": "ATENCION INTEGRAL DEL NINO",
+      "atenciones": 12073,
+      "atendidos": 6339,
+      "concentracion": 1.9
+    },
+    {
+      "UPS_DESCRIPCION": "UPS NO MAPEADA",
+      "atenciones": 5945,
+      "atendidos": 3543,
+      "concentracion": 1.68
+    },
+    {
+      "UPS_DESCRIPCION": "SERVICIOS SOCIAL",
+      "atenciones": 3912,
+      "atendidos": 1926,
+      "concentracion": 2.03
+    },
+    {
+      "UPS_DESCRIPCION": "ENFERMEDADES INFECCIOSAS / INFECTOLOGÍA",
+      "atenciones": 3243,
+      "atendidos": 2403,
+      "concentracion": 1.35
+    },
+    {
+      "UPS_DESCRIPCION": "PSIQUIATRIA",
+      "atenciones": 2225,
+      "atendidos": 1123,
+      "concentracion": 1.98
+    }
+  ],
+  "cursoVida": [
+    {
+      "CURSO_VIDA_VALIDADO": "Adulto",
+      "atenciones": 102334,
+      "atendidos": 31660
+    },
+    {
+      "CURSO_VIDA_VALIDADO": "Niño",
+      "atenciones": 81458,
+      "atendidos": 18708
+    },
+    {
+      "CURSO_VIDA_VALIDADO": "Joven",
+      "atenciones": 52671,
+      "atendidos": 14442
+    },
+    {
+      "CURSO_VIDA_VALIDADO": "Adulto mayor",
+      "atenciones": 40480,
+      "atendidos": 11967
+    },
+    {
+      "CURSO_VIDA_VALIDADO": "Adolescente",
+      "atenciones": 22322,
+      "atendidos": 6530
+    },
+    {
+      "CURSO_VIDA_VALIDADO": "No definido",
+      "atenciones": 8569,
+      "atendidos": 3
+    }
+  ],
+  "condicion": [
+    {
+      "CONDICION_VALIDADA": "No identificado",
+      "atenciones": 110286,
+      "atendidos": 39617
+    },
+    {
+      "CONDICION_VALIDADA": "NOMBRADO",
+      "atenciones": 75068,
+      "atendidos": 38258
+    },
+    {
+      "CONDICION_VALIDADA": "CAS",
+      "atenciones": 64792,
+      "atendidos": 29846
+    },
+    {
+      "CONDICION_VALIDADA": "LOCADORES",
+      "atenciones": 37007,
+      "atendidos": 19864
+    },
+    {
+      "CONDICION_VALIDADA": "SERUMS EQUIVALENTE",
+      "atenciones": 18434,
+      "atendidos": 12473
+    },
+    {
+      "CONDICION_VALIDADA": "DESTACADO VIENE",
+      "atenciones": 1641,
+      "atendidos": 1008
+    },
+    {
+      "CONDICION_VALIDADA": "SERUMS REMUNERADO",
+      "atenciones": 606,
+      "atendidos": 410
+    }
+  ],
+  "grupoServicio": [
+    {
+      "GRUPO_SERVICIO": "Otros",
+      "atenciones": 103093,
+      "atendidos": 33643
+    },
+    {
+      "GRUPO_SERVICIO": "Preventivo",
+      "atenciones": 73241,
+      "atendidos": 43933
+    },
+    {
+      "GRUPO_SERVICIO": "Medicina",
+      "atenciones": 59022,
+      "atendidos": 31484
+    },
+    {
+      "GRUPO_SERVICIO": "Materno",
+      "atenciones": 32582,
+      "atendidos": 14630
+    },
+    {
+      "GRUPO_SERVICIO": "Salud mental",
+      "atenciones": 24273,
+      "atendidos": 9743
+    },
+    {
+      "GRUPO_SERVICIO": "Niño",
+      "atenciones": 12425,
+      "atendidos": 6431
+    },
+    {
+      "GRUPO_SERVICIO": "Rehabilitación",
+      "atenciones": 3198,
+      "atendidos": 724
+    }
+  ],
+  "profesionales": [
+    {
+      "ATIENDE": "CINDY LESLIE ESTRELLA VILLANUEVA",
+      "atenciones": 4753,
+      "atendidos": 807,
+      "concentracion": 5.889714993804213
+    },
+    {
+      "ATIENDE": "MARIBEL CHAVEZ ANDRADE",
+      "atenciones": 2500,
+      "atendidos": 1370,
+      "concentracion": 1.8248175182481752
+    },
+    {
+      "ATIENDE": "MARIA ELIZABETH VILLALOBOS MURILLO",
+      "atenciones": 2431,
+      "atendidos": 1109,
+      "concentracion": 2.192064923354373
+    },
+    {
+      "ATIENDE": "ROSA MARIA OROSCO ATENCIO",
+      "atenciones": 2107,
+      "atendidos": 1489,
+      "concentracion": 1.4150436534586972
+    },
+    {
+      "ATIENDE": "JULY ELVIRA ZAMORA HUAPAYA",
+      "atenciones": 2051,
+      "atendidos": 1204,
+      "concentracion": 1.7034883720930232
+    },
+    {
+      "ATIENDE": "ZOILA MERCEDES VILLALOBOS MURILLO",
+      "atenciones": 2026,
+      "atendidos": 1285,
+      "concentracion": 1.5766536964980544
+    },
+    {
+      "ATIENDE": "MARLENE CUZCANO CARHUAPOMA",
+      "atenciones": 2014,
+      "atendidos": 1601,
+      "concentracion": 1.2579637726420987
+    },
+    {
+      "ATIENDE": "DERLIZ REBECA CHUCO AYALA",
+      "atenciones": 1988,
+      "atendidos": 1298,
+      "concentracion": 1.531587057010786
+    },
+    {
+      "ATIENDE": "JOSELIN BRIGGETTE PALOMINO TABOADA",
+      "atenciones": 1956,
+      "atendidos": 1357,
+      "concentracion": 1.4414148857774502
+    },
+    {
+      "ATIENDE": "BRIGITTE GLORIA LASHMY ROJAS SALVATIERRA",
+      "atenciones": 1937,
+      "atendidos": 1365,
+      "concentracion": 1.4190476190476191
+    },
+    {
+      "ATIENDE": "PERCY ALEJANDRO HERNANI QUISPE",
+      "atenciones": 1928,
+      "atendidos": 1470,
+      "concentracion": 1.3115646258503402
+    },
+    {
+      "ATIENDE": "RUBEN DE LA CRUZ RUIZ",
+      "atenciones": 1922,
+      "atendidos": 1591,
+      "concentracion": 1.2080452545568825
+    },
+    {
+      "ATIENDE": "IVAN CESAR HUAMAN AQUINO",
+      "atenciones": 1901,
+      "atendidos": 1412,
+      "concentracion": 1.3463172804532577
+    },
+    {
+      "ATIENDE": "ROSA NATALY DAVILA MOSQUERA",
+      "atenciones": 1867,
+      "atendidos": 1163,
+      "concentracion": 1.6053310404127257
+    },
+    {
+      "ATIENDE": "MICHELLE ALEXANDRA MARIÑAS LUNA",
+      "atenciones": 1856,
+      "atendidos": 1413,
+      "concentracion": 1.313517338995046
+    },
+    {
+      "ATIENDE": "CRIS DAYSI PAUCAR ROJAS",
+      "atenciones": 1835,
+      "atendidos": 1065,
+      "concentracion": 1.7230046948356808
+    },
+    {
+      "ATIENDE": "PAULINA LIZARBE FLORES",
+      "atenciones": 1760,
+      "atendidos": 1223,
+      "concentracion": 1.4390842191332789
+    },
+    {
+      "ATIENDE": "JOEL JAVIER ESPINOZA GAMARRA",
+      "atenciones": 1759,
+      "atendidos": 1442,
+      "concentracion": 1.2198335644937586
+    },
+    {
+      "ATIENDE": "MARTHA PEREZ QUIJANO",
+      "atenciones": 1736,
+      "atendidos": 1285,
+      "concentracion": 1.3509727626459145
+    },
+    {
+      "ATIENDE": "KARINA HENLLY CHIRINOS YAURI",
+      "atenciones": 1682,
+      "atendidos": 1099,
+      "concentracion": 1.5304822565969063
+    }
+  ],
+  "quality": {
+    "documentos": {
+      "VALIDO": 247386,
+      "DNI_NORMALIZADO": 49446,
+      "DOCUMENTO_NULL": 8566,
+      "DOCUMENTO_NO_NUMERICO": 1595,
+      "LONGITUD_OBSERVADA": 841
+    },
+    "edad": {
+      "EDAD_CONSISTENTE": 299050,
+      "EDAD_INCOMPLETA": 8569,
+      "EDAD_INCONSISTENTE": 215
+    },
+    "ups": {
+      "Mapeadas": 301889,
+      "No mapeadas": 5945
+    },
+    "genero_null": 8566,
+    "ubigeo_null": 12258
+  },
+  "heatmap": {
+    "groups": [
+      "Medicina",
+      "Preventivo",
+      "Materno",
+      "Salud mental",
+      "Niño",
+      "Rehabilitación",
+      "Otros"
+    ],
+    "rows": [
+      {
+        "establecimiento": "FORTALEZA",
+        "Medicina": 11415,
+        "Preventivo": 11627,
+        "Materno": 7322,
+        "Salud mental": 3154,
+        "Niño": 2465,
+        "Rehabilitación": 0,
+        "Otros": 21485
+      },
+      {
+        "establecimiento": "SAN FERNANDO",
+        "Medicina": 6547,
+        "Preventivo": 8210,
+        "Materno": 4484,
+        "Salud mental": 4128,
+        "Niño": 1219,
+        "Rehabilitación": 0,
+        "Otros": 15877
+      },
+      {
+        "establecimiento": "MICAELA BASTIDAS",
+        "Medicina": 7570,
+        "Preventivo": 9867,
+        "Materno": 5940,
+        "Salud mental": 1892,
+        "Niño": 1555,
+        "Rehabilitación": 657,
+        "Otros": 9932
+      },
+      {
+        "establecimiento": "ALFA Y OMEGA",
+        "Medicina": 9911,
+        "Preventivo": 10425,
+        "Materno": 4205,
+        "Salud mental": 1397,
+        "Niño": 1886,
+        "Rehabilitación": 0,
+        "Otros": 9391
+      },
+      {
+        "establecimiento": "EL BOSQUE",
+        "Medicina": 4380,
+        "Preventivo": 9949,
+        "Materno": 2392,
+        "Salud mental": 227,
+        "Niño": 769,
+        "Rehabilitación": 0,
+        "Otros": 7107
+      },
+      {
+        "establecimiento": "GUSTAVO LANATTA",
+        "Medicina": 5272,
+        "Preventivo": 6215,
+        "Materno": 2235,
+        "Salud mental": 944,
+        "Niño": 1095,
+        "Rehabilitación": 336,
+        "Otros": 7003
+      },
+      {
+        "establecimiento": "SALAMANCA",
+        "Medicina": 5269,
+        "Preventivo": 7515,
+        "Materno": 1798,
+        "Salud mental": 615,
+        "Niño": 486,
+        "Rehabilitación": 0,
+        "Otros": 5455
+      },
+      {
+        "establecimiento": "ATE",
+        "Medicina": 4063,
+        "Preventivo": 5258,
+        "Materno": 2529,
+        "Salud mental": 2042,
+        "Niño": 1237,
+        "Rehabilitación": 0,
+        "Otros": 4961
+      }
+    ]
+  },
+  "alerts": [
+    {
+      "type": "critical",
+      "title": "Documentos NULL/observados",
+      "value": 60448,
+      "decision": "Depurar NRO_DOC antes de usar atendidos oficiales."
+    },
+    {
+      "type": "warning",
+      "title": "UPS no mapeadas",
+      "value": 5945,
+      "decision": "Completar catálogo UPS para evitar servicios sin descripción."
+    },
+    {
+      "type": "warning",
+      "title": "Edades observadas",
+      "value": 8784,
+      "decision": "Usar EDAD_CALCULADA y revisar registros inconsistentes."
+    },
+    {
+      "type": "success",
+      "title": "Id_Cita duplicados",
+      "value": 0,
+      "decision": "La base no muestra duplicidad en actos de atención."
+    }
+  ],
+  "insights": [
+    "Fortalecer los establecimientos con mayor producción para evitar saturación operativa.",
+    "Separar los registros observados antes de calcular coberturas oficiales.",
+    "Usar NRO_DOC_NORMALIZADO para el cálculo de atendidos y reconsulta.",
+    "Usar EDAD_CALCULADA para curso de vida validado.",
+    "Cruzar condición laboral para sustentar decisiones de RRHH y continuidad de servicios."
+  ]
+}
