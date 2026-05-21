@@ -124,9 +124,30 @@
       <div id="alerts" class="alerts"></div>
     </section>
 
+    <section class="layout-2 reveal" id="riesgos">
+      <div class="panel">
+        <div class="panel-title"><div><h3>Mapa de riesgos ejecutivos</h3><p>Priorización automática por impacto y probabilidad operativa</p></div></div>
+        <canvas id="riskChart"></canvas>
+      </div>
+      <div class="panel">
+        <div class="panel-title"><div><h3>Distribución de prioridades</h3><p>Riesgos clasificados para acción gerencial</p></div></div>
+        <canvas id="priorityChart"></canvas>
+      </div>
+    </section>
+
     <section class="panel reveal" id="decisiones">
-      <div class="panel-title"><div><h3>Insights automáticos</h3><p>Lectura ejecutiva para toma de decisiones</p></div></div>
-      <div id="insights" class="insights"></div>
+      <div class="panel-title">
+        <div><h3>Motor de insights ejecutivos</h3><p>Tendencias, riesgos, anomalías y problemas operativos priorizados automáticamente</p></div>
+        <span>Decisión: priorizar intervención gerencial</span>
+      </div>
+      <div class="insight-toolbar">
+        <button class="chip active" data-priority="ALL">Todos</button>
+        <button class="chip" data-priority="Alta">Alta prioridad</button>
+        <button class="chip" data-priority="Media">Media</button>
+        <button class="chip" data-priority="Baja">Baja</button>
+      </div>
+      <div id="insightSummary" class="risk-summary"></div>
+      <div id="insights" class="insights advanced"></div>
     </section>
 
     <footer>

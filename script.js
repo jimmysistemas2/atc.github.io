@@ -106,6 +106,17 @@ function renderCharts(d){
   makeChart('conditionChart','bar',d.condicion.map(x=>x.CONDICION_VALIDADA),[
     {label:'Atenciones',data:d.condicion.map(x=>x.atenciones),backgroundColor:'rgba(155,92,255,.55)'}
   ],{indexAxis:'y'});
+
+  if(document.getElementById('riskChart') && d.advancedInsights){
+    const riskItems = d.advancedInsights.slice(0,10);
+    makeChart('riskChart','bar',riskItems.map(x=>x.category),[
+      {label:'Score de riesgo',data:riskItems.map(x=>x.riskScore),backgroundColor:'rgba(255,92,138,.52)'}
+    ],{indexAxis:'y'});
+    const counts = d.advancedInsights.reduce((acc,x)=>{acc[x.priority]=(acc[x.priority]||0)+1;return acc;},{});
+    makeChart('priorityChart','doughnut',Object.keys(counts),[
+      {data:Object.values(counts),backgroundColor:['#ff5c8a','#ffd166','#50f5a8'],borderColor:'rgba(255,255,255,.12)'}
+    ]);
+  }
 }
 
 function renderPlotly(d){
@@ -141,9 +152,50 @@ function renderAlerts(d){
     </div>`).join('');
 }
 
+let currentPriority = 'ALL';
+
 function renderInsights(d){
-  document.getElementById('insights').innerHTML = d.insights.map((x,i)=>`
-    <div class="insight"><strong>Insight ${i+1}</strong><p>${x}</p></div>`).join('');
+  const all = d.advancedInsights || [];
+  const filtered = currentPriority === 'ALL' ? all : all.filter(x=>x.priority === currentPriority);
+  const high = all.filter(x=>x.priority === 'Alta').length;
+  const med = all.filter(x=>x.priority === 'Media').length;
+  const avgRisk = all.length ? Math.round(all.reduce((s,x)=>s+(x.riskScore||0),0)/all.length) : 0;
+  const maxRisk = all.length ? Math.max(...all.map(x=>x.riskScore||0)) : 0;
+
+  const summary = document.getElementById('insightSummary');
+  if(summary){
+    summary.innerHTML = `
+      <div class="risk-pill"><small>Insights detectados</small><strong>${fmt.format(all.length)}</strong></div>
+      <div class="risk-pill"><small>Alta prioridad</small><strong>${fmt.format(high)}</strong></div>
+      <div class="risk-pill"><small>Media prioridad</small><strong>${fmt.format(med)}</strong></div>
+      <div class="risk-pill"><small>Score máximo</small><strong>${fmt.format(maxRisk)}</strong></div>
+    `;
+  }
+
+  document.getElementById('insights').innerHTML = filtered.map((x)=>`
+    <article class="insight-card">
+      <div class="insight-icon"><i class="fa-solid ${x.icon || 'fa-brain'}"></i></div>
+      <div class="insight-content">
+        <h4>${x.category}</h4>
+        <p><b>Hallazgo:</b> ${x.finding}</p>
+        <div class="insight-meta">
+          <div class="meta-box"><small>Impacto</small>${x.impact}</div>
+          <div class="meta-box"><small>Interpretación gerencial</small>${x.management}</div>
+        </div>
+        <div class="risk-meter"><span style="width:${Math.min(x.riskScore || 0,100)}%"></span></div>
+      </div>
+      <div class="badge-priority badge-${x.priority}">${x.priority}</div>
+    </article>
+  `).join('');
+
+  document.querySelectorAll('.chip').forEach(btn=>{
+    btn.onclick = () => {
+      currentPriority = btn.dataset.priority;
+      document.querySelectorAll('.chip').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      renderInsights(rawData);
+    };
+  });
 }
 
 function renderAll(d){

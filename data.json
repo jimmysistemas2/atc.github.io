@@ -576,10 +576,113 @@
     }
   ],
   "insights": [
-    "Fortalecer los establecimientos con mayor producción para evitar saturación operativa.",
-    "Separar los registros observados antes de calcular coberturas oficiales.",
-    "Usar NRO_DOC_NORMALIZADO para el cálculo de atendidos y reconsulta.",
-    "Usar EDAD_CALCULADA para curso de vida validado.",
-    "Cruzar condición laboral para sustentar decisiones de RRHH y continuidad de servicios."
+    "En 2026-05 se registra una caída de 67.95% frente al mes anterior.",
+    "35.83% de las atenciones no tienen condición laboral identificada en el cruce de profesionales.",
+    "Se identifican 60,448 registros con documento observado o no válido (19.64% del total).",
+    "FORTALEZA concentra 18.67% de las atenciones registradas. Los tres primeros establecimientos concentran 43.97%.",
+    "La UPS MEDICINA GENERAL lidera la producción con 18.82% del total de atenciones.",
+    "La concentración global es de 3.71 atenciones por atendido."
+  ],
+  "advancedInsights": [
+    {
+      "category": "Caída de productividad",
+      "priority": "Alta",
+      "finding": "En 2026-05 se registra una caída de 67.95% frente al mes anterior.",
+      "impact": "Puede indicar menor oferta, feriados, problemas de registro HIS, falta de personal o reducción de demanda.",
+      "management": "Contrastar con programación asistencial, asistencia de personal y oportunidad de registro para descartar subregistro.",
+      "metric": 67.95,
+      "icon": "fa-arrow-trend-down",
+      "riskScore": 100
+    },
+    {
+      "category": "Riesgo RRHH",
+      "priority": "Alta",
+      "finding": "35.83% de las atenciones no tienen condición laboral identificada en el cruce de profesionales.",
+      "impact": "Limita el análisis de productividad por vínculo laboral y debilita decisiones de dotación.",
+      "management": "Actualizar el padrón de profesionales y normalizar NUM_DOC_ATIENDE antes del informe final de RRHH.",
+      "metric": 35.83,
+      "icon": "fa-user-doctor",
+      "riskScore": 100
+    },
+    {
+      "category": "Calidad documentaria",
+      "priority": "Alta",
+      "finding": "Se identifican 60,448 registros con documento observado o no válido (19.64% del total).",
+      "impact": "Afecta directamente el cálculo de atendidos, cobertura, reconsulta y continuidad del paciente.",
+      "management": "Separar base observada, corregir NRO_DOC y usar NRO_DOC_NORMALIZADO para indicadores oficiales.",
+      "metric": 19.64,
+      "icon": "fa-id-card",
+      "riskScore": 100
+    },
+    {
+      "category": "Concentración de demanda",
+      "priority": "Alta",
+      "finding": "FORTALEZA concentra 18.67% de las atenciones registradas. Los tres primeros establecimientos concentran 43.97%.",
+      "impact": "Riesgo de sobrecarga operativa, colas, presión sobre recursos humanos y reducción de oportunidad de atención.",
+      "management": "Evaluar redistribución de horarios, refuerzo de personal, campañas descentralizadas y monitoreo semanal de producción.",
+      "metric": 18.67,
+      "icon": "fa-hospital",
+      "riskScore": 79.0
+    },
+    {
+      "category": "Servicio crítico",
+      "priority": "Alta",
+      "finding": "La UPS MEDICINA GENERAL lidera la producción con 18.82% del total de atenciones.",
+      "impact": "Alta demanda asistencial en una línea específica; puede requerir mayor dotación, horarios extendidos o rediseño de flujos.",
+      "management": "Revisar capacidad instalada, tiempos de espera y disponibilidad de profesionales para evitar saturación del servicio.",
+      "metric": 18.82,
+      "icon": "fa-layer-group",
+      "riskScore": 75.0
+    },
+    {
+      "category": "Intensidad de uso",
+      "priority": "Alta",
+      "finding": "La concentración global es de 3.71 atenciones por atendido.",
+      "impact": "Un valor elevado puede indicar reconsulta frecuente, continuidad de tratamiento, demanda acumulada o posible duplicidad funcional.",
+      "management": "Analizar servicios con mayor concentración para diferenciar continuidad clínica válida de presión operativa evitable.",
+      "metric": 3.71,
+      "icon": "fa-wave-square",
+      "riskScore": 67.0
+    },
+    {
+      "category": "Prioridad poblacional",
+      "priority": "Media",
+      "finding": "El curso de vida con mayor demanda es Adulto con 33.24% de las atenciones.",
+      "impact": "La demanda se concentra en un grupo poblacional específico, lo cual orienta campañas y programación sanitaria.",
+      "management": "Alinear oferta, campañas preventivas y recursos según el curso de vida predominante.",
+      "metric": 33.24,
+      "icon": "fa-users-viewfinder",
+      "riskScore": 57.0
+    },
+    {
+      "category": "Productividad profesional",
+      "priority": "Media",
+      "finding": "El profesional con mayor producción concentra 1.54% de las atenciones totales.",
+      "impact": "Puede indicar alta carga individual, concentración de registro o posible dependencia operativa.",
+      "management": "Contrastar con turnos, UPS asignadas y perfil profesional para detectar sobrecarga o registros concentrados.",
+      "metric": 1.54,
+      "icon": "fa-stethoscope",
+      "riskScore": 31.0
+    },
+    {
+      "category": "Edad y curso de vida",
+      "priority": "Media",
+      "finding": "Existen 8,784 registros con edad incompleta, improbable o inconsistente (2.85%).",
+      "impact": "Puede distorsionar el análisis por curso de vida y la programación sanitaria por población objetivo.",
+      "management": "Usar EDAD_CALCULADA desde FECHA_NAC y FECHA_ATENCION; separar casos inconsistentes para corrección.",
+      "metric": 2.85,
+      "icon": "fa-calendar-check",
+      "riskScore": 20.0
+    },
+    {
+      "category": "Catálogo UPS",
+      "priority": "Media",
+      "finding": "Hay 5,945 atenciones en UPS no mapeadas (1.93%).",
+      "impact": "El dashboard puede subclasificar servicios y perder precisión en líneas estratégicas.",
+      "management": "Completar el diccionario UPS antes de publicar el tablero como versión oficial.",
+      "metric": 1.93,
+      "icon": "fa-diagram-project",
+      "riskScore": 15.0
+    }
   ]
 }

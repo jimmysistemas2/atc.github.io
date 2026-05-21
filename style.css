@@ -160,3 +160,50 @@ footer{border-top:1px solid rgba(255,255,255,.08)}
 @media(max-width:1100px){
   .command-strip{grid-template-columns:1fr}
 }
+
+
+/* ===== Advanced Executive Insight Engine ===== */
+.insight-toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.chip{
+  border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.07);color:#dbeafe;
+  padding:10px 14px;border-radius:999px;cursor:pointer;transition:.25s ease;font-size:13px
+}
+.chip:hover,.chip.active{background:linear-gradient(135deg,rgba(38,217,255,.22),rgba(155,92,255,.18));transform:translateY(-2px);box-shadow:0 12px 30px rgba(38,217,255,.12)}
+.risk-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.risk-pill{
+  padding:14px 16px;border-radius:20px;border:1px solid rgba(255,255,255,.13);
+  background:linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.05))
+}
+.risk-pill small{display:block;color:#9fb4ce;font-size:12px}.risk-pill strong{font-size:24px}
+.insights.advanced{grid-template-columns:1fr;gap:14px}
+.insight-card{
+  display:grid;grid-template-columns:54px 1fr auto;gap:16px;padding:18px;border-radius:24px;
+  border:1px solid rgba(255,255,255,.14);background:linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.045));
+  position:relative;overflow:hidden;transition:.3s ease
+}
+.insight-card:hover{transform:translateY(-5px);box-shadow:0 28px 75px rgba(0,0,0,.28),0 0 38px rgba(38,217,255,.09)}
+.insight-icon{
+  width:54px;height:54px;border-radius:18px;display:grid;place-items:center;
+  background:linear-gradient(135deg,rgba(38,217,255,.28),rgba(155,92,255,.22));
+  color:#fff;font-size:21px;box-shadow:0 0 30px rgba(38,217,255,.18)
+}
+.insight-content h4{margin:0 0 8px;font-size:17px}
+.insight-content p{margin:8px 0;color:#cfe2ff;line-height:1.45}
+.insight-content b{color:#fff}
+.badge-priority{
+  height:max-content;padding:8px 12px;border-radius:999px;font-size:12px;font-weight:800;
+  letter-spacing:.04em;text-transform:uppercase
+}
+.badge-Alta{background:rgba(255,92,138,.16);color:#ff9ab7;border:1px solid rgba(255,92,138,.32);box-shadow:0 0 24px rgba(255,92,138,.12)}
+.badge-Media{background:rgba(255,209,102,.14);color:#ffe3a3;border:1px solid rgba(255,209,102,.28)}
+.badge-Baja{background:rgba(80,245,168,.13);color:#a9ffd0;border:1px solid rgba(80,245,168,.26)}
+.risk-meter{height:7px;background:rgba(255,255,255,.09);border-radius:999px;overflow:hidden;margin-top:12px}
+.risk-meter span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#50f5a8,#ffd166,#ff5c8a)}
+.insight-meta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.meta-box{padding:11px 12px;border-radius:16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08)}
+.meta-box small{display:block;color:#9fb4ce;margin-bottom:4px}
+@media(max-width:900px){
+  .risk-summary{grid-template-columns:1fr 1fr}
+  .insight-card{grid-template-columns:1fr}
+  .insight-meta{grid-template-columns:1fr}
+}
