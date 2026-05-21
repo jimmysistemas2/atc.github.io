@@ -11,14 +11,41 @@ async function init(){
   document.getElementById('subtitle').textContent = rawData.metadata.subtitle;
   document.getElementById('periodo').textContent = rawData.metadata.periodo;
   buildFilter();
-  renderAll(rawData);
+  currentData = getScopedData();
+  renderAll(currentData);
+}
+
+function getScopedData(){
+  const sel = document.getElementById('filterEstablecimiento');
+  const selected = sel?.value || 'Todos los establecimientos';
+  if(selected === 'Todos los establecimientos' || selected === 'ALL') return rawData;
+  return rawData.byEstablecimiento?.[selected] || rawData;
 }
 
 function buildFilter(){
   const sel = document.getElementById('filterEstablecimiento');
-  sel.innerHTML = `<option value="ALL">Todos los establecimientos</option>` + 
-    rawData.establecimientos.map(x=>`<option value="${x.ESTABLECIMIENTO}">${x.ESTABLECIMIENTO}</option>`).join('');
-  sel.addEventListener('change', ()=> renderAll(rawData));
+  const items = rawData.filters?.establecimientos || ['Todos los establecimientos', ...rawData.establecimientos.map(x=>x.ESTABLECIMIENTO)];
+  sel.innerHTML = items.map((x,i)=>`<option value="${x}">${i===0 ? 'Toda la RIS Ate' : x}</option>`).join('');
+  sel.addEventListener('change', ()=>{
+    currentData = getScopedData();
+    document.body.classList.add('scope-changing');
+    setTimeout(()=>document.body.classList.remove('scope-changing'), 450);
+    renderAll(currentData);
+    showScopeToast(currentData.metadata.scope || sel.value);
+  });
+}
+
+function showScopeToast(scope){
+  let toast = document.getElementById('scopeToast');
+  if(!toast){
+    toast = document.createElement('div');
+    toast.id = 'scopeToast';
+    toast.className = 'scope-toast';
+    document.body.appendChild(toast);
+  }
+  toast.innerHTML = `<i class="fa-solid fa-filter"></i><span>Vista actual: <b>${scope === 'Todos los establecimientos' ? 'Toda la RIS Ate' : scope}</b></span>`;
+  toast.classList.add('show');
+  setTimeout(()=>toast.classList.remove('show'), 2100);
 }
 
 function iconFor(label){
@@ -78,7 +105,9 @@ function makeChart(id, type, labels, datasets, options={}){
   ctx.chart = new Chart(ctx, {
     type, data:{labels,datasets}, options:{
       responsive:true, maintainAspectRatio:false,
-      plugins:{legend:{labels:{color:'#dbeafe'}}, tooltip:{backgroundColor:'rgba(6,17,31,.95)',borderColor:'rgba(255,255,255,.2)',borderWidth:1}},
+      animation:{duration:900,easing:'easeOutQuart'},
+      interaction:{mode:'index',intersect:false},
+      plugins:{legend:{labels:{color:'#dbeafe',usePointStyle:true,boxWidth:9}}, tooltip:{backgroundColor:'rgba(6,17,31,.95)',borderColor:'rgba(255,255,255,.2)',borderWidth:1,padding:12,cornerRadius:12}},
       scales: type === 'doughnut' || type === 'radar' ? {} : {
         x:{ticks:{color:'#9fb4ce'}, grid:{color:'rgba(255,255,255,.07)'}},
         y:{ticks:{color:'#9fb4ce'}, grid:{color:'rgba(255,255,255,.07)'}}
@@ -125,7 +154,8 @@ function renderPlotly(d){
   const z = y.map(e=>x.map(g=>d.heatmap.rows.find(r=>r.establecimiento===e)[g]));
   Plotly.newPlot('heatmap',[{x,y,z,type:'heatmap',colorscale:[[0,'#071426'],[.5,'#3877ff'],[1,'#50f5a8']],hoverongaps:false}],{
     paper_bgcolor:'rgba(0,0,0,0)',plot_bgcolor:'rgba(0,0,0,0)',
-    font:{color:'#dbeafe'},margin:{l:150,r:20,t:10,b:80}
+    font:{color:'#dbeafe'},margin:{l:170,r:20,t:10,b:80},
+    transition:{duration:450,easing:'cubic-in-out'}
   },{displayModeBar:false,responsive:true});
   Plotly.newPlot('gauge',[{type:'indicator',mode:'gauge+number',value:d.kpis.calidad,
     number:{suffix:'%'},gauge:{axis:{range:[0,100]},bar:{color:'#50f5a8'},bgcolor:'rgba(255,255,255,.05)',bordercolor:'rgba(255,255,255,.15)',
@@ -193,13 +223,23 @@ function renderInsights(d){
       currentPriority = btn.dataset.priority;
       document.querySelectorAll('.chip').forEach(b=>b.classList.remove('active'));
       btn.classList.add('active');
-      renderInsights(rawData);
+      renderInsights(currentData);
     };
   });
 }
 
 function renderAll(d){
-  renderKPIs(d); renderCharts(d); renderPlotly(d); renderTables(d); renderAlerts(d); renderInsights(d);
+  document.getElementById('title').textContent = d.metadata.title || rawData.metadata.title;
+  document.getElementById('subtitle').textContent = `${d.metadata.subtitle || rawData.metadata.subtitle} · ${d.metadata.scope || 'Todos los establecimientos'}`;
+  document.getElementById('periodo').textContent = d.metadata.periodo || rawData.metadata.periodo;
+  currentPriority = 'ALL';
+  document.querySelectorAll('.chip').forEach((b,i)=>b.classList.toggle('active', i===0));
+  renderKPIs(d);
+  renderCharts(d);
+  renderPlotly(d);
+  renderTables(d);
+  renderAlerts(d);
+  renderInsights(d);
 }
 
 init();
