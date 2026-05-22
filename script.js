@@ -122,17 +122,43 @@ function makeBarcode(text){
   return out;
 }
 
+
+function ipressImpactClass(i){
+  if(i===0) return 'gold';
+  if(i===1) return 'silver';
+  if(i===2) return 'bronze';
+  return 'standard';
+}
+
 function renderIpress(d){
   const box = document.getElementById('rankIpress');
-  box.innerHTML = (d.establecimientos||[]).slice(0,10).map((x,i)=>`
-    <button class="ipress-row click" data-ipress="${x.ESTABLECIMIENTO}">
-      <div class="num">${i+1}</div>
-      <div class="name">${x.ESTABLECIMIENTO}</div>
-      <div class="barcode">${makeBarcode(x.ESTABLECIMIENTO)}</div>
-      <div class="val">${fmt.format(x.atenciones)}</div>
-    </button>
-  `).join('');
-  box.querySelectorAll('.ipress-row').forEach(row=>{
+  const items = (d.establecimientos||[]).slice(0,10);
+  const max = Math.max(...items.map(x=>x.atenciones),1);
+  box.innerHTML = items.map((x,i)=>{
+    const pct = Math.round((x.atenciones/max)*100);
+    const cls = ipressImpactClass(i);
+    return `
+      <button class="ipress-impact ${cls}" data-ipress="${x.ESTABLECIMIENTO}">
+        <div class="ipress-medal">${i+1}</div>
+        <div class="ipress-core">
+          <div class="ipress-title">
+            <strong>${x.ESTABLECIMIENTO}</strong>
+            <span>${pct}%</span>
+          </div>
+          <div class="ipress-barcode">${makeBarcode(x.ESTABLECIMIENTO)}</div>
+          <div class="ipress-metrics">
+            <em><small>Atenciones</small><b>${fmt.format(x.atenciones)}</b></em>
+            <em><small>Atendidos</small><b>${fmt.format(x.atendidos)}</b></em>
+            <em><small>Concentración</small><b>${x.concentracion}</b></em>
+          </div>
+        </div>
+        <div class="ipress-score">
+          <i style="height:${Math.max(12,pct)}%"></i>
+        </div>
+      </button>`;
+  }).join('');
+
+  box.querySelectorAll('.ipress-impact').forEach(row=>{
     row.addEventListener('click', ()=>{
       state.ipress = row.dataset.ipress;
       state.ups = null; state.course = null; state.month = null;
@@ -146,17 +172,43 @@ function renderIpress(d){
   });
 }
 
+
+
+function upsIcon(name){
+  const n = String(name||'').toUpperCase();
+  if(n.includes('PSICO') || n.includes('PSIQUI') || n.includes('MENTAL')) return 'fa-brain';
+  if(n.includes('MEDICINA')) return 'fa-stethoscope';
+  if(n.includes('INMUN')) return 'fa-syringe';
+  if(n.includes('OBST') || n.includes('GINE') || n.includes('MATERNO') || n.includes('FETAL')) return 'fa-person-pregnant';
+  if(n.includes('NIÑO') || n.includes('NINO') || n.includes('PEDI') || n.includes('CRECIMIENTO')) return 'fa-child-reaching';
+  if(n.includes('ODONTO')) return 'fa-tooth';
+  if(n.includes('NUTRI')) return 'fa-apple-whole';
+  if(n.includes('REHABIL') || n.includes('TERAPIA')) return 'fa-person-walking';
+  if(n.includes('TUBERC') || n.includes('INFECT')) return 'fa-lungs';
+  if(n.includes('TAMIZAJE')) return 'fa-vial-circle-check';
+  return 'fa-hospital-user';
+}
+
 function renderUps(d){
-  const icons=['fa-square-h','fa-people-group','fa-family','fa-person-pregnant','fa-brain','fa-lungs','fa-tooth','fa-apple-whole','fa-flask','fa-pills'];
   const box = document.getElementById('rankUps');
-  box.innerHTML = (d.ups||[]).slice(0,10).map((x,i)=>`
-    <button class="ups-row click ${state.ups===x.UPS_DESCRIPCION?'selected':''}" data-ups="${x.UPS_DESCRIPCION}">
-      <b>${i+1}</b><i class="fa-solid ${icons[i%icons.length]}"></i>
-      <div class="name">${x.UPS_DESCRIPCION}</div><span class="dot"></span>
-      <div class="value">${fmt.format(x.atenciones)}</div>
-    </button>
-  `).join('');
-  box.querySelectorAll('.ups-row').forEach(row=>{
+  const items = (d.ups||[]).slice(0,10);
+  const max = Math.max(...items.map(x=>x.atenciones),1);
+  box.innerHTML = items.map((x,i)=>{
+    const pct = Math.round((x.atenciones/max)*100);
+    return `
+      <button class="ups-card ${state.ups===x.UPS_DESCRIPCION?'selected':''}" data-ups="${x.UPS_DESCRIPCION}">
+        <div class="ups-pos">${String(i+1).padStart(2,'0')}</div>
+        <div class="ups-icon"><i class="fa-solid ${upsIcon(x.UPS_DESCRIPCION)}"></i></div>
+        <div class="ups-info">
+          <strong>${x.UPS_DESCRIPCION}</strong>
+          <div class="ups-track"><i style="width:${pct}%"></i></div>
+          <small>${fmt.format(x.atenciones)} atenciones · ${fmt.format(x.atendidos)} atendidos · C ${x.concentracion}</small>
+        </div>
+        <div class="ups-pct">${pct}%</div>
+      </button>`;
+  }).join('');
+
+  box.querySelectorAll('.ups-card').forEach(row=>{
     row.addEventListener('click', ()=>{
       state.ups = row.dataset.ups;
       renderContext();
@@ -164,6 +216,7 @@ function renderUps(d){
     });
   });
 }
+
 
 function chart(id,type,labels,datasets,extra={}){
   const el = document.getElementById(id);
