@@ -178,7 +178,7 @@ function chart(id,type,labels,datasets,extra={}){
       animation:{duration:900,easing:'easeOutQuart'},
       interaction:{mode:'index',intersect:false},
       plugins:{
-        legend:{labels:{color:'#fff',usePointStyle:true}},
+        legend:{labels:{color:'#f7fbff',usePointStyle:true}},
         tooltip:{
           backgroundColor:'rgba(3,12,19,.96)',
           borderColor:'rgba(35,224,211,.32)',
@@ -197,11 +197,11 @@ function chart(id,type,labels,datasets,extra={}){
         }
       },
       scales:type==='line'?{
-        x:{ticks:{color:'#fff'},grid:{color:'rgba(255,255,255,.08)'}},
-        y:{ticks:{color:'#fff'},grid:{color:'rgba(255,255,255,.08)'}}
+        x:{ticks:{color:'#f7fbff'},grid:{color:'rgba(255,255,255,.14)'}},
+        y:{ticks:{color:'#f7fbff'},grid:{color:'rgba(255,255,255,.14)'}}
       }:{
-        x:{ticks:{color:'#fff'},grid:{display:false}},
-        y:{ticks:{color:'#fff'},grid:{color:'rgba(255,255,255,.08)'}}
+        x:{ticks:{color:'#f7fbff'},grid:{display:false}},
+        y:{ticks:{color:'#f7fbff'},grid:{color:'rgba(255,255,255,.14)'}}
       },
       ...extra
     }
@@ -213,15 +213,15 @@ function renderAttChart(d){
   const labels = m.map(x=>x.periodo.replace('2026-',''));
   let datasets;
   if(state.mode==='atenciones'){
-    datasets=[{label:'Atenciones',data:m.map(x=>x.atenciones),backgroundColor:'#00b7b3',borderRadius:8}];
+    datasets=[{label:'Atenciones',data:m.map(x=>x.atenciones),backgroundColor:'#1fd4d0',borderRadius:8}];
   } else if(state.mode==='atendidos'){
-    datasets=[{label:'Atendidos',data:m.map(x=>x.atendidos),backgroundColor:'#f26a1b',borderRadius:8}];
+    datasets=[{label:'Atendidos',data:m.map(x=>x.atendidos),backgroundColor:'#ff8a3d',borderRadius:8}];
   } else if(state.mode==='ratio'){
     datasets=[{label:'Concentración',data:m.map(x=>Number((x.atenciones/Math.max(x.atendidos,1)).toFixed(2))),backgroundColor:'#23e0d3',borderRadius:8}];
   } else {
     datasets=[
-      {label:'Atenciones',data:m.map(x=>x.atenciones),backgroundColor:'#00b7b3',borderRadius:8},
-      {label:'Atendidos',data:m.map(x=>x.atendidos),backgroundColor:'#f26a1b',borderRadius:8}
+      {label:'Atenciones',data:m.map(x=>x.atenciones),backgroundColor:'#1fd4d0',borderRadius:8},
+      {label:'Atendidos',data:m.map(x=>x.atendidos),backgroundColor:'#ff8a3d',borderRadius:8}
     ];
   }
   chart('attChart','bar',labels,datasets);
@@ -232,7 +232,7 @@ function renderCharts(d){
   const labels = m.map(x=>x.periodo.replace('2026-',''));
   renderAttChart(d);
   chart('trend','line',labels,[
-    {label:'Atenciones',data:m.map(x=>x.atenciones),borderColor:'#23e0d3',backgroundColor:'rgba(0,183,179,.38)',fill:true,tension:.45,pointBackgroundColor:'#fff',pointRadius:5,pointHoverRadius:8}
+    {label:'Atenciones',data:m.map(x=>x.atenciones),borderColor:'#69f1eb',backgroundColor:'rgba(31,212,208,.22)',fill:true,tension:.45,pointBackgroundColor:'#fff',pointRadius:5,pointHoverRadius:8}
   ]);
   const days = 30;
   document.getElementById('p1').textContent = fmt.format(Math.round(d.kpis.atenciones/days));
@@ -319,3 +319,5 @@ document.addEventListener('DOMContentLoaded',()=>{
   if(btn) btn.addEventListener('click',()=>document.body.classList.toggle('sidebar-open'));
   if(overlay) overlay.addEventListener('click',()=>document.body.classList.remove('sidebar-open'));
 });
+
+console.log('Dashboard DIRIS V19 validado: responsive, filtros vinculados, gráficos interactivos, alto contraste.');

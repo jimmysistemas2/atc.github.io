@@ -715,3 +715,411 @@ button.kpi,button.ipress-row,button.ups-row,button.life,button.alert{
   .decision-grid{grid-template-columns:1fr}
   .chart-toolbar{display:grid;grid-template-columns:1fr 1fr}
 }
+
+
+/* ==========================================================
+   V19 · LEGIBILIDAD, ORDEN Y CONTRASTE GERENCIAL
+   ========================================================== */
+
+:root{
+  --bg:#03111d;
+  --panel:#071f2e;
+  --panel-2:#092b3d;
+  --panel-soft:#0b3348;
+  --text:#f7fbff;
+  --text-strong:#ffffff;
+  --muted:#c6d7e2;
+  --muted-2:#9fb7c6;
+  --line:rgba(255,255,255,.16);
+  --cyan:#1fd4d0;
+  --cyan-soft:#69f1eb;
+  --blue:#0b6fae;
+  --blue-2:#138ad2;
+  --orange:#ff8a3d;
+  --orange-2:#ffb071;
+  --green:#7cff6b;
+  --red:#ff647c;
+}
+
+/* Fondo más oscuro y menos saturado para mejorar lectura */
+body{
+  background:
+    radial-gradient(circle at 20% 6%, rgba(31,212,208,.14), transparent 26%),
+    radial-gradient(circle at 75% 4%, rgba(11,111,174,.18), transparent 28%),
+    linear-gradient(180deg,#020a12 0%,#03111d 45%,#02070d 100%) !important;
+  color:var(--text) !important;
+}
+
+/* Paneles con contraste alto */
+.panel,
+.kpi,
+.life,
+.alert,
+.decision-panel{
+  background:linear-gradient(180deg,rgba(9,43,61,.96),rgba(5,24,36,.98)) !important;
+  border:1px solid var(--line) !important;
+  box-shadow:0 18px 50px rgba(0,0,0,.30), inset 0 1px 0 rgba(255,255,255,.05) !important;
+}
+
+/* Orden general */
+main{
+  max-width:1680px !important;
+  margin:0 auto !important;
+}
+
+.header{
+  gap:18px !important;
+  align-items:flex-start !important;
+}
+
+.header h1{
+  color:#fff !important;
+  text-shadow:none !important;
+  letter-spacing:.04em !important;
+}
+
+.header p,
+.panel p,
+.panel-title p{
+  color:var(--muted) !important;
+}
+
+/* KPIs más legibles */
+.kpis{
+  gap:14px !important;
+}
+
+.kpi{
+  border-radius:14px !important;
+  min-height:112px !important;
+  background:linear-gradient(135deg,#057e84,#06425b) !important;
+}
+
+.kpi.orange{
+  background:linear-gradient(135deg,#e96018,#8d3109) !important;
+}
+
+.kpi.blue{
+  background:linear-gradient(135deg,#0b314d,#061b2d) !important;
+}
+
+.kpi small{
+  color:#e7f7ff !important;
+  font-weight:700 !important;
+  opacity:.95 !important;
+}
+
+.kpi b{
+  color:#ffffff !important;
+  font-weight:900 !important;
+  text-shadow:0 2px 10px rgba(0,0,0,.25);
+}
+
+.kpi span{
+  color:#d9fff2 !important;
+}
+
+/* Grillas más ordenadas */
+.topgrid{
+  grid-template-columns:1.04fr 1.28fr 1fr !important;
+  gap:16px !important;
+  align-items:stretch !important;
+}
+
+.bottomgrid{
+  grid-template-columns:1.25fr .8fr .9fr !important;
+  gap:16px !important;
+  align-items:stretch !important;
+}
+
+.panel{
+  padding:18px !important;
+  border-radius:16px !important;
+}
+
+.panel h3{
+  color:#fff !important;
+  font-weight:900 !important;
+  letter-spacing:.02em !important;
+}
+
+/* Ranking IPRESS con mejor contraste y orden */
+.ipress-row{
+  display:grid !important;
+  grid-template-columns:34px minmax(150px,1fr) 160px 82px !important;
+  align-items:center !important;
+  gap:12px !important;
+  padding:9px 4px !important;
+  border-bottom:1px solid rgba(255,255,255,.10) !important;
+  background:transparent !important;
+  border-radius:10px !important;
+}
+
+.ipress-row:hover{
+  background:rgba(31,212,208,.10) !important;
+}
+
+.ipress-row .num{
+  color:#ffffff !important;
+  font-size:18px !important;
+  font-weight:900 !important;
+}
+
+.ipress-row .name{
+  color:#eefbff !important;
+  font-size:13px !important;
+  font-weight:750 !important;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.ipress-row .val{
+  color:#ffffff !important;
+  font-size:15px !important;
+  font-weight:900 !important;
+}
+
+.barcode{
+  height:30px !important;
+  background:rgba(255,255,255,.06);
+  border-radius:8px;
+  padding:5px 6px;
+  overflow:hidden;
+}
+
+.barcode span{
+  background:linear-gradient(180deg,#ffffff,var(--cyan-soft),var(--cyan)) !important;
+  box-shadow:0 0 8px rgba(31,212,208,.55) !important;
+}
+
+/* Ranking UPS */
+.ups-row{
+  display:grid !important;
+  grid-template-columns:24px 28px minmax(120px,1fr) 10px 78px !important;
+  align-items:center !important;
+  gap:9px !important;
+  padding:8px 2px !important;
+  border-bottom:1px solid rgba(255,255,255,.10) !important;
+  border-radius:10px !important;
+  background:transparent !important;
+}
+
+.ups-row:hover{
+  background:rgba(31,212,208,.10) !important;
+}
+
+.ups-row b,
+.ups-row .value{
+  color:#ffffff !important;
+  font-weight:900 !important;
+}
+
+.ups-row .name{
+  color:#eefbff !important;
+  font-weight:700 !important;
+  line-height:1.18 !important;
+}
+
+.ups-row i{
+  color:#ffffff !important;
+}
+
+/* Gráficos: asegurar lectura */
+.chart canvas,
+.trend canvas,
+#attChart,
+#trend{
+  background:rgba(255,255,255,.025);
+  border-radius:12px;
+  padding:6px;
+}
+
+.chart-toolbar{
+  margin:8px 0 12px !important;
+}
+
+.chart-mode{
+  background:#0b3146 !important;
+  border:1px solid rgba(255,255,255,.18) !important;
+  color:#ecfbff !important;
+  font-weight:750 !important;
+}
+
+.chart-mode.active{
+  background:linear-gradient(90deg,var(--cyan),var(--orange)) !important;
+  color:#06121c !important;
+}
+
+/* Mini KPIs bajo gráfico */
+.minis div,
+.mini-kpis .mini{
+  background:linear-gradient(135deg,#057e84,#063a4f) !important;
+  border:1px solid rgba(255,255,255,.14) !important;
+  color:#fff !important;
+}
+
+.minis .orange,
+.mini.orange{
+  background:linear-gradient(135deg,#e96018,#8d3109) !important;
+}
+
+.minis .dark,
+.mini.dark{
+  background:#0d2231 !important;
+}
+
+.minis small,
+.mini small{
+  color:#e4f6ff !important;
+  font-weight:700 !important;
+}
+
+.minis b,
+.mini b{
+  color:#fff !important;
+}
+
+/* Curso de vida */
+.life{
+  background:linear-gradient(180deg,#0a3045,#061b29) !important;
+  color:#fff !important;
+}
+
+.life span,
+.life small{
+  color:#e6f5fb !important;
+}
+
+.life b{
+  color:#ffffff !important;
+}
+
+.life i{
+  color:#ffffff !important;
+}
+
+.progress{
+  background:rgba(255,255,255,.12) !important;
+}
+
+.progress i{
+  background:linear-gradient(90deg,var(--cyan),var(--orange)) !important;
+}
+
+/* Alertas */
+.alert{
+  background:#082233 !important;
+  color:#fff !important;
+}
+
+.alert small{
+  color:#dcecf3 !important;
+}
+
+.alert b{
+  color:#ffffff !important;
+}
+
+/* Panel de decisión */
+.decision-panel{
+  background:linear-gradient(135deg,rgba(31,212,208,.16),rgba(255,255,255,.05)) !important;
+}
+
+.decision-panel p{
+  color:#e7f7ff !important;
+}
+
+.decision-grid span{
+  background:rgba(255,255,255,.09) !important;
+}
+
+.decision-grid small{
+  color:#bdd6e3 !important;
+}
+
+.decision-grid b{
+  color:#fff !important;
+}
+
+/* Filtros y encabezado */
+.actions button,
+.actions select,
+.top-actions button,
+.top-actions select{
+  background:#071f2e !important;
+  color:#ffffff !important;
+  border:1px solid rgba(255,255,255,.18) !important;
+}
+
+.actions label,
+.top-actions label{
+  color:#dcecf3 !important;
+}
+
+/* Sidebar mejor contraste */
+aside,
+.side{
+  background:linear-gradient(180deg,#02101a,#052536) !important;
+}
+
+nav a,
+.menu a{
+  color:#e9f8ff !important;
+}
+
+nav a.on,
+.menu a.on,
+nav a.active,
+.menu a.active{
+  background:linear-gradient(90deg,#008e91,#0ab7b1) !important;
+  color:#fff !important;
+  font-weight:900 !important;
+}
+
+/* Responsive ordenado */
+@media(max-width:1366px){
+  .topgrid{
+    grid-template-columns:1fr 1fr !important;
+  }
+  .ups{
+    grid-column:1/-1 !important;
+  }
+  .bottomgrid{
+    grid-template-columns:1fr 1fr !important;
+  }
+  .alerts{
+    grid-column:1/-1 !important;
+  }
+}
+
+@media(max-width:1024px){
+  .topgrid,
+  .bottomgrid{
+    grid-template-columns:1fr !important;
+  }
+  .kpis{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  }
+  .ipress-row{
+    grid-template-columns:30px minmax(120px,1fr) 120px 75px !important;
+  }
+}
+
+@media(max-width:720px){
+  .kpis{
+    grid-template-columns:1fr !important;
+  }
+  .ipress-row{
+    grid-template-columns:26px 1fr 72px !important;
+  }
+  .ipress-row .barcode{
+    display:none !important;
+  }
+  .ups-row{
+    grid-template-columns:24px 26px 1fr 70px !important;
+  }
+  .ups-row .dot{
+    display:none !important;
+  }
+}
